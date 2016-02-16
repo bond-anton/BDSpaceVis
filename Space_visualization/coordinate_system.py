@@ -1,11 +1,11 @@
 from __future__ import division
 
 import numpy as np
-from Space.Coordinates import transforms as gt
 from mayavi import mlab
 from tvtk.api import tvtk
 
 from Space.Figures import figures
+from Space_visualization import euler_color
 
 
 def CS_arrows(CS, offset=0.0, scale=1.0):
@@ -47,10 +47,10 @@ def draw_CS_box(fig, CS, offset=0.5, scale=1.0, draw_axes=True, draw_labels=True
                                                origin=np.array([scale/2, scale/2, scale/2]))
     cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
     cube.points = CS.to_global(cube_points)
-    euler_color = gt.euler_color(CS.euler_angles)
-    cube_surface = mlab.pipeline.surface(cube, color=euler_color)
+    color = euler_color(CS.euler_angles)
+    cube_surface = mlab.pipeline.surface(cube, color=color)
     cube_surface.actor.property.edge_visibility = 1
-    cube_surface.actor.property.edge_color = euler_color
+    cube_surface.actor.property.edge_color = color
     arrows, labels = None, None
     if draw_axes:
         arrows, labels = draw_CS_axes(fig, CS, offset=offset, scale=scale, draw_labels=draw_labels)
@@ -78,14 +78,13 @@ def update_CS_box(CS, cube_surface, arrows, labels, offset=0.5, scale=1.0):
                                                origin=np.array([scale/2, scale/2, scale/2]))
     cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
     cube.points = CS.to_global(cube_points)
-    euler_color = gt.euler_color(CS.euler_angles)
+    color = euler_color(CS.euler_angles)
     cube_surface.parent.parent.data = cube
     cube_surface.actor.property.edge_visibility = 1
-    cube_surface.actor.property.edge_color = euler_color
-    cube_surface.actor.property.color = euler_color
+    cube_surface.actor.property.edge_color = color
+    cube_surface.actor.property.color = color
     if arrows is None:
         return cube_surface, arrows, labels
     else:
         arrows, labels = update_CS_axes(CS, arrows, labels, offset=offset, scale=scale)
     return cube_surface, arrows, labels
-
