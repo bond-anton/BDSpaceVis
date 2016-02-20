@@ -33,9 +33,9 @@ def anim():
         CS_1.rotate_axis_angle(np.array([0, 1, 0]), np.deg2rad(step))  # this is inplace transform
         CS_2.rotate_axis_angle(np.array([1, 0, 0]), np.deg2rad(step))  # this is inplace transform
         CS_3.rotate_axis_angle(np.array([0, 0, 1]), np.deg2rad(step))  # this is inplace transform
-        CS_4.set_eulers(CS_4.euler_angles + np.array([0, 0, np.deg2rad(step)]))
-        CS_5.set_eulers(CS_5.euler_angles + direction * np.array([0, np.deg2rad(step), 0]))
-        CS_6.set_eulers(CS_6.euler_angles - np.array([np.deg2rad(step), 0, 0]))
+        CS_4.set_euler_angles(CS_4.euler_angles + np.array([0, 0, np.deg2rad(step)]))
+        CS_5.set_euler_angles(CS_5.euler_angles + direction * np.array([0, np.deg2rad(step), 0]))
+        CS_6.set_euler_angles(CS_6.euler_angles + np.array([np.deg2rad(step), 0, 0]))
 
         if direction == 1 and abs(np.pi - CS_5.euler_angles[1]) < np.deg2rad(step):
             direction *= -1

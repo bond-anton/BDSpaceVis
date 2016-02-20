@@ -26,7 +26,7 @@ for phi1 in np.linspace(0, 360, M, endpoint=True):
             # Create cartesian coordinate system
             CS = Cartesian(origin=np.array([phi1, Phi, phi2]), labels=['i1', 'i2', 'i3'])
             # Set CS orientation using Euler's angles
-            CS.set_eulers(euler_angles)
+            CS.set_euler_angles(euler_angles)
             # CS_box visualize CS as a cube colored according to Euler's angles
             Visual.draw_CS_box(fig, CS, scale=scale, draw_axes=False)
 # mlab.outline(extent=[0, 360, 0, 180, 0, 360])  # uncomment to draw white outline
