@@ -52,7 +52,7 @@ def draw_CS_box(fig, CS, offset=0.5, scale=1.0, draw_axes=True, draw_labels=True
     cube_points = figures.generate_cube_points(scale, scale, scale,
                                                origin=np.array([scale/2, scale/2, scale/2]))
     cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
-    cube.points = CS.to_global(cube_points)
+    cube.points = CS.to_parent(cube_points)
     color = euler_color(CS.euler_angles)
     cube_surface = mlab.pipeline.surface(cube, color=color)
     cube_surface.actor.property.edge_visibility = 1
@@ -83,7 +83,7 @@ def update_CS_box(CS, cube_surface, arrows, labels, offset=0.5, scale=1.0):
     cube_points = figures.generate_cube_points(scale, scale, scale,
                                                origin=np.array([scale/2, scale/2, scale/2]))
     cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
-    cube.points = CS.to_global(cube_points)
+    cube.points = CS.to_parent(cube_points)
     color = euler_color(CS.euler_angles)
     cube_surface.parent.parent.data = cube
     cube_surface.actor.property.edge_visibility = 1
