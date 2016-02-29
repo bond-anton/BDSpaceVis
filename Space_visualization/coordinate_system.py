@@ -4,7 +4,7 @@ import numpy as np
 from mayavi import mlab
 from tvtk.api import tvtk
 
-from Space.Figures import figures
+from Space.Figures import generators
 
 
 def euler_color(euler_angles):
@@ -49,8 +49,8 @@ def draw_CS_axes(fig, CS, offset=0.0, scale=1.0, draw_labels=True):
 
 def draw_CS_box(fig, CS, offset=0.5, scale=1.0, draw_axes=True, draw_labels=True):
     mlab.figure(fig, bgcolor=fig.scene.background)
-    cube_points = figures.generate_cube_points(scale, scale, scale,
-                                               origin=np.array([scale/2, scale/2, scale/2]))
+    cube_points = generators.generate_cuboid(scale, scale, scale,
+                                             origin=np.array([scale/2, scale/2, scale/2]))
     cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
     cube.points = CS.to_parent(cube_points)
     color = euler_color(CS.euler_angles)
@@ -80,8 +80,8 @@ def update_CS_axes(CS, arrows, labels, offset=0.0, scale=1.0):
 
 
 def update_CS_box(CS, cube_surface, arrows, labels, offset=0.5, scale=1.0):
-    cube_points = figures.generate_cube_points(scale, scale, scale,
-                                               origin=np.array([scale/2, scale/2, scale/2]))
+    cube_points = generators.generate_cuboid(scale, scale, scale,
+                                             origin=np.array([scale/2, scale/2, scale/2]))
     cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
     cube.points = CS.to_parent(cube_points)
     color = euler_color(CS.euler_angles)

@@ -2,6 +2,7 @@ import numpy as np
 from mayavi import mlab
 
 from Space import Space
+from Space.Figures import Figure, generators
 from Space.Coordinates import Cartesian
 import Space_visualization as Visual
 
@@ -21,7 +22,8 @@ solar_system.add_element(mars)
 
 moon = Space('Moon', Cartesian(origin=[0.2, 0.2, 0.2]))
 earth.add_element(moon)
-lunohod = Space('Lunohod', Cartesian(origin=[0.1, 0.1, 0.1]))
+lunohod = Figure('Lunohod', Cartesian(origin=[0.1, 0.1, 0.1]))
+lunohod.set_points(generators.generate_cuboid(a=0.1, b=0.2, c=0.05))
 moon.add_element(lunohod)
 
 phobos = Space('Phobos', Cartesian(origin=[0.2, 0.2, 0.2]))
