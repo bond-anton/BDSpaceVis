@@ -18,8 +18,8 @@ def CS_arrows(CS, offset=0.0, scale=1.0):
     points = []
     lengths = []
     for i in range(3):
-        points.append(CS.origin + scale * CS.basis[:, i] * offset)
-        lengths.append(CS.basis[i, :] * scale)
+        points.append(CS.origin + scale * CS.basis[i] * offset)
+        lengths.append(CS.basis[:, i] * scale)
     points = np.array(points)
     lengths = np.array(lengths)
     return points, lengths

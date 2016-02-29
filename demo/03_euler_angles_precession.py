@@ -12,9 +12,9 @@ import Space_visualization as Visual
 CS_1 = Cartesian(origin=np.array([0, 0, 0]))
 CS_2 = Cartesian(origin=np.array([0, 0, 0]))
 step_prec = 1.0  # in degrees
-step_rot = 10.0  # in degrees
+step_rot = 1.0  # in degrees
 direction_prec = 1
-direction_rot = -1
+direction_rot = 1
 Phi = 30  # tilt in degrees
 CS_1.set_euler_angles(CS_1.euler_angles + np.array([0, np.deg2rad(Phi), 0]))  # tilt the CS
 # to visualise the coordinate system basis the module Visual is used

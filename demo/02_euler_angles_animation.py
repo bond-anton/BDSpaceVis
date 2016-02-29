@@ -18,9 +18,9 @@ CS_6 = Cartesian(origin=np.array([6, 3, 0]))
 step = 1.0  # in degrees
 # to visualise the coordinate system basis the module Visual is used
 
-fig = mlab.figure('CS demo', bgcolor=(0, 0, 0))  # Create the mayavi figure
+fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 0.5))  # Create the mayavi figure
 
-@mlab.animate(delay=1000)
+@mlab.animate(delay=100)
 def anim():
     cs_box_1, arrows_1, labels_1 = Visual.draw_CS_box(fig, CS_1)
     cs_box_2, arrows_2, labels_2 = Visual.draw_CS_box(fig, CS_2)
