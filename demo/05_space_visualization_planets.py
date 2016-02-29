@@ -15,10 +15,10 @@ earth = Space('Earth', Cartesian(origin=[1.5, 1.5, 1.5]))
 
 mars = Space('Mars', Cartesian(origin=[2, 2, 2]))
 
-solar_system.add_element(mercury)
-solar_system.add_element(venus)
+#solar_system.add_element(mercury)
+#solar_system.add_element(venus)
 solar_system.add_element(earth)
-solar_system.add_element(mars)
+#solar_system.add_element(mars)
 
 moon = Space('Moon', Cartesian(origin=[0.2, 0.2, 0.2]))
 earth.add_element(moon)
@@ -40,7 +40,7 @@ def anim():
     while True:
         Visual.draw_space(views)
         earth.coordinate_system.rotate_axis_angle([-1, -1, -1], np.deg2rad(1))
-        mars.coordinate_system.rotate_axis_angle([1, 0, 0], np.deg2rad(1))
+        #mars.coordinate_system.rotate_axis_angle([1, 0, 0], np.deg2rad(1))
         yield
 
 anim()

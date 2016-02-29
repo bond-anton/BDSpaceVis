@@ -37,24 +37,26 @@ class SpaceView(object):
 class FigureView(SpaceView):
 
     def __init__(self, fig, figure, scale=1, color=None, edge_visible=False):
+        assert isinstance(figure, Figure)
         super(FigureView, self).__init__(fig, figure, scale=scale, color=color)
         self.surface = None
         self.edge_visible = edge_visible
 
     def draw_surface(self):
-        coordinate_system = self.space.basis_in_global_coordinate_system()
-        grid = tvtk.StructuredGrid(dimensions=(2, 2, 2))
-        grid.points = coordinate_system.to_parent(self.space.points)
-        if self.surface is None:
-            mlab.figure(self.fig, bgcolor=self.fig.scene.background)
-            data_set = mlab.pipeline.add_dataset(grid, self.space.name)
-            self.surface = mlab.pipeline.surface(data_set)
-        else:
-            self.surface.parent.parent.data = grid
-        self.surface.parent.parent.name = self.space.name
-        self.surface.actor.property.color = self.color
-        self.surface.actor.property.edge_visibility = self.edge_visible
-        self.surface.actor.property.edge_color = self.color
+        if self.space.points is not None:
+            coordinate_system = self.space.basis_in_global_coordinate_system()
+            grid = tvtk.StructuredGrid(dimensions=(2, 2, 2))
+            grid.points = coordinate_system.to_parent(self.space.points)
+            if self.surface is None:
+                mlab.figure(self.fig, bgcolor=self.fig.scene.background)
+                data_set = mlab.pipeline.add_dataset(grid, self.space.name)
+                self.surface = mlab.pipeline.surface(data_set)
+            else:
+                self.surface.parent.parent.data = grid
+            self.surface.parent.parent.name = self.space.name
+            self.surface.actor.property.color = self.color
+            self.surface.actor.property.edge_visibility = self.edge_visible
+            self.surface.actor.property.edge_color = self.color
 
 
 def gen_space_views(fig, space, scale=1):
