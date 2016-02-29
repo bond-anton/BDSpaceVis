@@ -47,6 +47,7 @@ class FigureView(SpaceView):
             coordinate_system = self.space.basis_in_global_coordinate_system()
             grid = tvtk.StructuredGrid(dimensions=(2, 2, 2))
             grid.points = coordinate_system.to_parent(self.space.points)
+            print self.space.points
             if self.surface is None:
                 mlab.figure(self.fig, bgcolor=self.fig.scene.background)
                 data_set = mlab.pipeline.add_dataset(grid, self.space.name)
