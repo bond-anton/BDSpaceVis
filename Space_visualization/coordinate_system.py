@@ -49,9 +49,9 @@ def draw_CS_axes(fig, CS, offset=0.0, scale=1.0, draw_labels=True):
 
 def draw_CS_box(fig, CS, offset=0.5, scale=1.0, draw_axes=True, draw_labels=True):
     mlab.figure(fig, bgcolor=fig.scene.background)
-    cube_points = generators.generate_cuboid(scale, scale, scale,
+    cube_points, dims = generators.generate_cuboid(scale, scale, scale,
                                              origin=np.array([scale/2, scale/2, scale/2]))
-    cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
+    cube = tvtk.StructuredGrid(dimensions=dims)
     cube.points = CS.to_parent(cube_points)
     color = euler_color(CS.euler_angles)
     cube_surface = mlab.pipeline.surface(cube, color=color)
@@ -80,9 +80,9 @@ def update_CS_axes(CS, arrows, labels, offset=0.0, scale=1.0):
 
 
 def update_CS_box(CS, cube_surface, arrows, labels, offset=0.5, scale=1.0):
-    cube_points = generators.generate_cuboid(scale, scale, scale,
+    cube_points, dims = generators.generate_cuboid(scale, scale, scale,
                                              origin=np.array([scale/2, scale/2, scale/2]))
-    cube = tvtk.StructuredGrid(dimensions=(2, 2, 2))
+    cube = tvtk.StructuredGrid(dimensions=dims)
     cube.points = CS.to_parent(cube_points)
     color = euler_color(CS.euler_angles)
     cube_surface.parent.parent.data = cube
