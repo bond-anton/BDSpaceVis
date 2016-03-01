@@ -23,13 +23,11 @@ solar_system.add_element(earth)
 moon = Space('Moon', Cartesian(origin=[0.2, 0.2, 0.2]))
 earth.add_element(moon)
 lunohod = Figure('Lunohod', Cartesian(origin=[0.1, 0.1, 0.1]))
-points, dims = generators.generate_cuboid(a=0.1, b=0.2, c=0.05)
+#points, dims = generators.generate_cuboid(a=0.1, b=0.2, c=0.05)
+#lunohod.set_points(points, dims)
+phi = np.linspace(0, np.pi, 20)
+points, dims = generators.generate_cone(phi)
 lunohod.set_points(points, dims)
-dims = (2, 4, 2)
-phi = np.linspace(0, np.pi, dims[1])
-r = np.linspace(0.1, 0.5, dims[0])
-theta = np.linspace(0, 0.5 * np.pi, dims[1])
-phi = np.linspace(0, np.pi, dims[2])
 #lunohod.set_points(generators.generate_sphere(r, theta, phi))
 moon.add_element(lunohod)
 
@@ -38,7 +36,7 @@ deimos = Space('Deimos', Cartesian(origin=[-0.2, 0, 0]))
 mars.add_element(phobos)
 mars.add_element(deimos)
 
-fig = mlab.figure('CS demo', bgcolor=(0, 0, 0))  # Create the mayavi figure
+fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 0.5))  # Create the mayavi figure
 
 @mlab.animate(delay=100)
 def anim():
