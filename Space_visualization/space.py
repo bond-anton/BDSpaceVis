@@ -7,7 +7,8 @@ from Space.Figures.Spherical import SphericalShape, SphericalWedge, SphericalSec
 
 class SpaceView(object):
 
-    def __init__(self, fig, space, scale=1, color=None, points=None, dims=None):
+    def __init__(self, fig, space, scale=1, color=None, points=None, dims=None,
+                 cs_visible=True, surface_visible=True, wireframe=False):
         self.fig = fig
         if not isinstance(space, Space):
             raise ValueError('Only Space class objects supported')
@@ -17,6 +18,9 @@ class SpaceView(object):
         self.cs_labels = None
         self.surface = None
         self.edge_visible = False
+        self.cs_visible = cs_visible
+        self.surface_visible = surface_visible
+        self.wireframe = wireframe
         self.points = None
         self.dims = None
         self.set_points(points, dims)
@@ -40,29 +44,59 @@ class SpaceView(object):
             raise ValueError('color must be an iterable of three color values')
         self.draw()
 
+    def set_cs_visible(self, cs_visible=True):
+        self.cs_visible = cs_visible
+        self.draw()
+
+    def set_surface_visible(self, surface_visible=True):
+        self.surface_visible = surface_visible
+        self.draw()
+
+    def set_wireframe(self, wireframe=True):
+        self.wireframe = wireframe
+        self.draw()
+
     def draw_cs(self):
-        coordinate_system = self.space.basis_in_global_coordinate_system()
-        if self.cs_arrows is None:
-            self.cs_arrows, self.cs_labels = draw_CS_axes(self.fig, coordinate_system, offset=0, scale=self.scale)
+        if self.cs_visible:
+            coordinate_system = self.space.basis_in_global_coordinate_system()
+            if self.cs_arrows is None:
+                self.cs_arrows, self.cs_labels = draw_CS_axes(self.fig, coordinate_system, offset=0, scale=self.scale)
+            else:
+                self.cs_arrows, self.cs_labels = update_CS_axes(coordinate_system, self.cs_arrows, self.cs_labels,
+                                                                offset=0, scale=self.scale)
         else:
-            self.cs_arrows, self.cs_labels = update_CS_axes(coordinate_system, self.cs_arrows, self.cs_labels,
-                                                            offset=0, scale=self.scale)
+            if self.cs_labels is not None:
+                for cs_label in self.cs_labels:
+                    cs_label.remove()
+            if self.cs_arrows is not None:
+                self.cs_arrows.remove()
+            self.cs_arrows = None
+            self.cs_labels = None
 
     def draw_surface(self):
-        if self.points is not None:
-            coordinate_system = self.space.basis_in_global_coordinate_system()
-            grid = tvtk.StructuredGrid(dimensions=self.dims)
-            grid.points = coordinate_system.to_parent(self.points)
-            if self.surface is None:
-                mlab.figure(self.fig, bgcolor=self.fig.scene.background)
-                data_set = mlab.pipeline.add_dataset(grid, self.space.name)
-                self.surface = mlab.pipeline.surface(data_set)
-            else:
-                self.surface.parent.parent.data = grid
-            self.surface.parent.parent.name = self.space.name
-            self.surface.actor.property.color = self.color
-            self.surface.actor.property.edge_visibility = self.edge_visible
-            self.surface.actor.property.edge_color = self.color
+        if self.surface_visible:
+            if self.points is not None:
+                coordinate_system = self.space.basis_in_global_coordinate_system()
+                grid = tvtk.StructuredGrid(dimensions=self.dims)
+                grid.points = coordinate_system.to_parent(self.points)
+                if self.surface is None:
+                    mlab.figure(self.fig, bgcolor=self.fig.scene.background)
+                    data_set = mlab.pipeline.add_dataset(grid, self.space.name)
+                    self.surface = mlab.pipeline.surface(data_set)
+                else:
+                    self.surface.parent.parent.data = grid
+                self.surface.parent.parent.name = self.space.name
+                self.surface.actor.property.color = self.color
+                self.surface.actor.property.edge_visibility = self.edge_visible
+                self.surface.actor.property.edge_color = self.color
+                if self.wireframe:
+                    self.surface.actor.property.representation = 'wireframe'
+                else:
+                    self.surface.actor.property.representation = 'surface'
+        else:
+            if self.surface is not None:
+                self.surface.remove()
+            self.surface = None
 
     def draw_volume(self):
         """

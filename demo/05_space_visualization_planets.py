@@ -43,9 +43,12 @@ def anim():
     views = Visual.gen_space_views(fig, solar_system)
     Visual.draw_space(views)
     views['Sun'].set_color((1.0, 1.0, 0.2))
+    views['Solar System'].set_cs_visible(False)
+    views['Lunohod'].set_wireframe(True)
+    views['Moon'].set_wireframe(True)
     while True:
         Visual.draw_space(views)
-        earth.coordinate_system.rotate_axis_angle([-1, -1, -1], np.deg2rad(1))
+        earth.coordinate_system.rotate_axis_angle([1, 1, 1], np.deg2rad(1))
         #mars.coordinate_system.rotate_axis_angle([1, 0, 0], np.deg2rad(1))
         yield
 
