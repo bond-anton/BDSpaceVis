@@ -111,11 +111,13 @@ class SpaceView(object):
 
 class FigureView(SpaceView):
 
-    def __init__(self, fig, figure, scale=1, color=None, edge_visible=False, resolution=20):
+    def __init__(self, fig, figure, scale=1, color=None, edge_visible=False,
+                 cs_visible=True, surface_visible=True, wireframe=False, resolution=20):
         assert isinstance(figure, Figure)
         self.resolution = resolution
         points, dims = generate_points(figure, self.resolution)
-        super(FigureView, self).__init__(fig, figure, scale=scale, color=color, points=points, dims=dims)
+        super(FigureView, self).__init__(fig, figure, scale=scale, color=color, points=points, dims=dims,
+                                         cs_visible=cs_visible, surface_visible=surface_visible, wireframe=wireframe)
         self.edge_visible = edge_visible
 
     def set_resolution(self, resolution):
