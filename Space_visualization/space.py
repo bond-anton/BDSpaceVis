@@ -2,11 +2,12 @@ from __future__ import division
 from coordinate_system import *
 from Space import Space
 from Space.Figures import Figure
+from Space.Figures.Spherical import SphericalShape, SphericalWedge, SphericalSectionWedge
 
 
 class SpaceView(object):
 
-    def __init__(self, fig, space, scale=1, color=None):
+    def __init__(self, fig, space, scale=1, color=None, points=None, dims=None):
         self.fig = fig
         if not isinstance(space, Space):
             raise ValueError('Only Space class objects supported')
@@ -14,8 +15,21 @@ class SpaceView(object):
         self.scale = scale
         self.cs_arrows = None
         self.cs_labels = None
+        self.surface = None
+        self.edge_visible = False
+        self.points = None
+        self.dims = None
+        self.set_points(points, dims)
         self.color = None
         self.set_color(color)
+
+    def set_points(self, points=None, dims=None):
+        if points is None:
+            self.points = None
+            self.dims = None
+        else:
+            self.points = np.array(points, dtype=np.float)
+            self.dims = dims
 
     def set_color(self, color=None):
         if color is None:
@@ -24,6 +38,7 @@ class SpaceView(object):
             self.color = color
         else:
             raise ValueError('color must be an iterable of three color values')
+        self.draw()
 
     def draw_cs(self):
         coordinate_system = self.space.basis_in_global_coordinate_system()
@@ -33,21 +48,11 @@ class SpaceView(object):
             self.cs_arrows, self.cs_labels = update_CS_axes(coordinate_system, self.cs_arrows, self.cs_labels,
                                                             offset=0, scale=self.scale)
 
-
-class FigureView(SpaceView):
-
-    def __init__(self, fig, figure, scale=1, color=None, edge_visible=False):
-        assert isinstance(figure, Figure)
-        super(FigureView, self).__init__(fig, figure, scale=scale, color=color)
-        self.surface = None
-        self.edge_visible = edge_visible
-
     def draw_surface(self):
-        if self.space.points is not None:
+        if self.points is not None:
             coordinate_system = self.space.basis_in_global_coordinate_system()
-            grid = tvtk.StructuredGrid(dimensions=self.space.dims)
-            grid.points = coordinate_system.to_parent(self.space.points)
-            #print self.space.points
+            grid = tvtk.StructuredGrid(dimensions=self.dims)
+            grid.points = coordinate_system.to_parent(self.points)
             if self.surface is None:
                 mlab.figure(self.fig, bgcolor=self.fig.scene.background)
                 data_set = mlab.pipeline.add_dataset(grid, self.space.name)
@@ -59,21 +64,73 @@ class FigureView(SpaceView):
             self.surface.actor.property.edge_visibility = self.edge_visible
             self.surface.actor.property.edge_color = self.color
 
+    def draw_volume(self):
+        """
+        empty interface stub
+        """
+
+    def draw(self):
+        self.draw_cs()
+        self.draw_surface()
+        self.draw_volume()
+
+
+class FigureView(SpaceView):
+
+    def __init__(self, fig, figure, scale=1, color=None, edge_visible=False, resolution=20):
+        assert isinstance(figure, Figure)
+        self.resolution = resolution
+        points, dims = generate_points(figure, self.resolution)
+        super(FigureView, self).__init__(fig, figure, scale=scale, color=color, points=points, dims=dims)
+        self.edge_visible = edge_visible
+
+    def set_resolution(self, resolution):
+        self.resolution = resolution
+        points, dims = generate_points(self.space, resolution)
+        self.set_points(points, dims)
+        self.draw()
+
+    def set_edge_visible(self, edge_visible=True):
+        self.edge_visible = edge_visible
+        self.draw()
+
+
+def generate_points(figure, resolution=20):
+    assert isinstance(figure, Figure)
+    points = None
+    dims = None
+    if isinstance(figure, SphericalShape):
+        phi = np.linspace(0.0, figure.phi, angular_resolution(figure.phi, resolution), endpoint=True)
+        r = np.array([figure.r_inner, figure.r_outer], dtype=np.float)
+        if isinstance(figure, SphericalWedge):
+            theta = np.linspace(0.0, figure.theta, angular_resolution(figure.theta, resolution), endpoint=True)
+            points, dims = generators.generate_sphere(phi, theta, r)
+        elif isinstance(figure, SphericalSectionWedge):
+            z = np.array([figure.h1, figure.h2], dtype=np.float)
+            points, dims = generators.generate_spherical_section(phi, z, r)
+    return points, dims
+
+
+def angular_resolution(angle, resolution):
+    points_num = int(angle / np.pi * resolution)
+    if points_num < 2:
+        points_num = 2
+    return points_num
+
 
 def gen_space_views(fig, space, scale=1):
     if not isinstance(space, Space):
         raise ValueError('argument has to be of Space class')
     if isinstance(space, Figure):
-        views = [FigureView(fig, space, scale)]
+        view = FigureView(fig, space, scale)
     else:
-        views = [SpaceView(fig, space, scale)]
+        view = SpaceView(fig, space, scale)
+    views = {space.name: view}
     for key in space.elements.keys():
-        views += gen_space_views(fig, space.elements[key], scale=scale/2)
+        views.update(gen_space_views(fig, space.elements[key], scale=scale/2))
     return views
 
 
 def draw_space(views):
-    for view in views:
-        view.draw_cs()
-        if isinstance(view, FigureView):
-            view.draw_surface()
+    for key in views.keys():
+        views[key].draw()
