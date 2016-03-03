@@ -13,8 +13,8 @@ CS = Cartesian()  # if you don't pass arguments the basis coincide with 'Absolut
 # to visualise the coordinate system basis the module Visual is used
 
 fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 00.5))  # Create the mayavi figure
-#Visual.draw_CS_axes(fig, CS)
-cube_surface, arrows, labels = Visual.draw_CS_box(fig, CS, scale=1)
+#Visual.draw_coordinate_system_axes(fig, CS)
+cube_surface, arrows, labels = Visual.draw_coordinate_system_box(fig, CS, scale=1)
 CS.rotate_euler_angles([np.pi, 0, 0])
 CS.rotate_euler_angles([np.pi * 0.5, 0, 0])
 CS.rotate_euler_angles([np.pi * 0.5, 0, 0])
@@ -27,5 +27,5 @@ CS.rotate_axis_angle(np.array([1, 1, 1]), np.deg2rad(60))
 print CS.euler_angles
 #CS.rotate_axis_angle(np.array([1, 0, 0]), np.pi * 0.5)
 #print CS.euler_angles
-cube_surface, arrows, labels = Visual.update_CS_box(CS, cube_surface, arrows, labels, scale=1)
+cube_surface, arrows, labels = Visual.update_coordinate_system_box(CS, cube_surface, arrows, labels, scale=1)
 mlab.show()  # start mayavi

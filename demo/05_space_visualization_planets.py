@@ -5,7 +5,6 @@ from Space import Space
 from Space.Figure.Spherical import *
 from Space.Coordinates import Cartesian
 import Space_visualization as Visual
-from Space_visualization import generators
 
 
 solar_system = Space('Solar System')
@@ -36,16 +35,17 @@ deimos = Space('Deimos', Cartesian(origin=[-0.2, 0, 0]))
 mars.add_element(phobos)
 mars.add_element(deimos)
 
-fig = mlab.figure('CS demo', bgcolor=(0.0, 0.0, 0.0))  # Create the mayavi figure
+fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 0.5))  # Create the mayavi figure
 
 @mlab.animate(delay=100)
 def anim():
     views = Visual.gen_space_views(fig, solar_system)
     Visual.draw_space(views)
     views['Sun'].set_color((1.0, 1.0, 0.2))
-    views['Solar System'].set_cs_visible(False)
+    #views['Solar System'].set_cs_visible(True)
     views['Lunohod'].set_wireframe(True)
     views['Moon'].set_wireframe(True)
+    #views['Moon'].set_cs_visible(True)
     while True:
         Visual.draw_space(views)
         earth.coordinate_system.rotate_axis_angle([1, 1, 1], np.deg2rad(1))
