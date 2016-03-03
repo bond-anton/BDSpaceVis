@@ -2,7 +2,7 @@ import numpy as np
 from mayavi import mlab
 
 from Space import Space
-from Space.Figures.Spherical import *
+from Space.Figure.Spherical import *
 from Space.Coordinates import Cartesian
 import Space_visualization as Visual
 from Space_visualization import generators
@@ -49,7 +49,7 @@ def anim():
     while True:
         Visual.draw_space(views)
         earth.coordinate_system.rotate_axis_angle([1, 1, 1], np.deg2rad(1))
-        #mars.coordinate_system.rotate_axis_angle([1, 0, 0], np.deg2rad(1))
+        moon.coordinate_system.rotate_axis_angle([0, 0, 1], np.deg2rad(1))
         yield
 
 anim()

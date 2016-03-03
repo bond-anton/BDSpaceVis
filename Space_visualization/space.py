@@ -1,8 +1,8 @@
 from __future__ import division
 from coordinate_system import *
 from Space import Space
-from Space.Figures import Figure
-from Space.Figures.Spherical import SphericalShape, SphericalWedge, SphericalSectionWedge
+from Space.Figure import Figure
+from Space.Figure.Spherical import SphericalShape, SphericalWedge, SphericalSectionWedge
 
 
 class SpaceView(object):
