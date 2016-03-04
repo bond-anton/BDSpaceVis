@@ -42,7 +42,7 @@ global_points = path.coordinate_system.to_parent(points)
 mlab.plot3d(global_points[:, 0], global_points[:, 1], global_points[:, 2], color=(1, 0, 0))
 Visual.draw_coordinate_system_axes(fig, path.coordinate_system)
 
-
+'''
 path = arc_between_two_points(coordinate_system, point1, point2, radius=1, right=True)
 
 t = np.linspace(path.start, path.stop, num=101 * (path.stop - path.start) / (2 * np.pi), endpoint=True)
@@ -50,5 +50,5 @@ points = path.generate_points(t)
 global_points = path.coordinate_system.to_parent(points)
 mlab.plot3d(global_points[:, 0], global_points[:, 1], global_points[:, 2], color=(0, 1, 0))
 Visual.draw_coordinate_system_axes(fig, path.coordinate_system)
-
+'''
 mlab.show()
