@@ -55,6 +55,7 @@ def draw_coordinate_system_box(fig, coordinate_system, offset=0.5, scale=1.0, dr
     cube.points = coordinate_system.to_parent(cube_points)
     color = euler_color(coordinate_system.euler_angles)
     cube_surface = mlab.pipeline.surface(cube, color=color)
+    cube_surface.parent.parent.name = 'Euler colored box: ' + coordinate_system.name
     cube_surface.actor.property.edge_visibility = 1
     cube_surface.actor.property.edge_color = color
     arrows, labels = None, None
@@ -83,10 +84,8 @@ def update_coordinate_system_axes(coordinate_system, arrows, labels, offset=0.0,
 def update_coordinate_system_box(coordinate_system, cube_surface, arrows, labels, offset=0.5, scale=1.0):
     cube_points, dims = generators.generate_cuboid(scale, scale, scale,
                                                    origin=np.array([scale/2, scale/2, scale/2]))
-    cube = tvtk.StructuredGrid(dimensions=dims)
-    cube.points = coordinate_system.to_parent(cube_points)
     color = euler_color(coordinate_system.euler_angles)
-    cube_surface.parent.parent.data = cube
+    cube_surface.parent.parent.data.set(points=coordinate_system.to_parent(cube_points))
     cube_surface.actor.property.edge_visibility = 1
     cube_surface.actor.property.edge_color = color
     cube_surface.actor.property.color = color

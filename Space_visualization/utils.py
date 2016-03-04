@@ -1,8 +1,10 @@
 from __future__ import division
 from Space import Space
 from Space.Figure import Figure
+from Space.Curve import Curve
 from space import SpaceView
 from figures import FigureView
+from curves import CurveView
 
 
 def gen_space_views(fig, space, scale=1):
@@ -10,6 +12,8 @@ def gen_space_views(fig, space, scale=1):
         raise ValueError('argument has to be of Space class')
     if isinstance(space, Figure):
         view = FigureView(fig, space, scale=scale)
+    elif isinstance(space, Curve):
+        view = CurveView(fig, space, scale=scale)
     else:
         view = SpaceView(fig, space, scale=scale)
     views = {space.name: view}

@@ -1,5 +1,7 @@
 from coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
 from coordinate_system import draw_coordinate_system_box, update_coordinate_system_box
 from coordinate_system import euler_color
-from figures import SpaceView, FigureView
+from space import SpaceView
+from figures import FigureView
+from curves import CurveView
 from utils import gen_space_views, draw_space

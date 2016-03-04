@@ -64,10 +64,8 @@ class SpaceView(object):
 
     def draw_cs(self):
         if self.cs_visible:
-            print 'what', self.space.name
             coordinate_system = self.space.basis_in_global_coordinate_system()
             if self.cs_arrows is None:
-                print '-->', self.space.name
                 self.cs_arrows, self.cs_labels = draw_coordinate_system_axes(self.fig, coordinate_system,
                                                                              offset=0, scale=self.scale)
             else:
@@ -87,14 +85,15 @@ class SpaceView(object):
         if self.surface_visible:
             if self.points is not None:
                 coordinate_system = self.space.basis_in_global_coordinate_system()
-                grid = tvtk.StructuredGrid(dimensions=self.dims)
-                grid.points = coordinate_system.to_parent(self.points)
                 if self.surface is None:
+                    grid = tvtk.StructuredGrid(dimensions=self.dims)
+                    grid.points = coordinate_system.to_parent(self.points)
                     mlab.figure(self.fig, bgcolor=self.fig.scene.background)
                     data_set = mlab.pipeline.add_dataset(grid, self.space.name)
                     self.surface = mlab.pipeline.surface(data_set)
                 else:
-                    self.surface.parent.parent.data = grid
+                    self.surface.parent.parent.data.set(dimensions=self.dims)
+                    self.surface.parent.parent.data.set(points=coordinate_system.to_parent(self.points))
                 self.surface.parent.parent.name = self.space.name
                 self.surface.actor.property.color = self.color
                 self.surface.actor.property.edge_visibility = self.edge_visible

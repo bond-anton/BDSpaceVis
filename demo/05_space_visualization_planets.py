@@ -3,6 +3,7 @@ from mayavi import mlab
 
 from Space import Space
 from Space.Figure.Spherical import *
+from Space.Curve.Parametric import Helix
 from Space.Coordinates import Cartesian
 import Space_visualization as Visual
 
@@ -11,7 +12,9 @@ solar_system = Space('Solar System')
 sun = Sphere('Sun', r_outer=0.2)
 mercury = Space('Mercury', Cartesian(origin=[0.5, 0.5, 0.5]))
 venus = Space('Venus', Cartesian(origin=[1, 1, 1]))
-earth = Space('Earth', Cartesian(origin=[1.5, 1.5, 1.5]))
+#earth = Space('Earth', Cartesian(origin=[1.5, 1.5, 1.5]))
+earth = Helix(name='Earth', coordinate_system=Cartesian(origin=[1.5, 1.5, 1.5]),
+              radius=2, pitch=0.5, start=0, stop=np.pi * 4, right=True)
 
 mars = Space('Mars', Cartesian(origin=[2, 2, 2]))
 
