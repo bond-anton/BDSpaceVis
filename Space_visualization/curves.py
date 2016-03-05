@@ -10,19 +10,34 @@ from space import SpaceView
 class CurveView(SpaceView):
 
     def __init__(self, fig, curve, scale=1, color=None, edge_visible=False,
-                 cs_visible=True, surface_visible=True, wireframe=False, resolution=20):
+                 cs_visible=True, surface_visible=True, wireframe=False, resolution=20, thickness=None):
         assert isinstance(curve, Curve)
         self.resolution = resolution
+        self.edge_visible = edge_visible
+        self.thickness = None
         points, dims = generate_points(curve, self.resolution)
         super(CurveView, self).__init__(fig, curve, scale=scale, color=color, points=points, dims=dims,
                                         cs_visible=cs_visible, surface_visible=surface_visible, wireframe=wireframe)
-        self.edge_visible = edge_visible
 
     def set_resolution(self, resolution):
         self.resolution = resolution
         points, dims = generate_points(self.space, resolution)
         self.set_points(points, dims)
         self.draw()
+
+    def get_thickness(self):
+        if self.surface is not None:
+            return self.surface.parent.parent.filter.radius
+
+    def set_thickness(self, thickness):
+        """
+        Sets the thickness of the curve line changing mayavi tube radius
+        :param thickness: float number between 0.0 and 1e299
+        """
+        if isinstance(thickness, (float, int)):
+            self.thickness = float(thickness)
+            self.surface.parent.parent.filter.radius = self.thickness
+            self.draw()
 
     def set_edge_visible(self, edge_visible=True):
         self.edge_visible = edge_visible
@@ -35,8 +50,13 @@ class CurveView(SpaceView):
                 curve_points = coordinate_system.to_parent(self.points)
                 if self.surface is None:
                     mlab.figure(self.fig, bgcolor=self.fig.scene.background)
-                    self.surface = mlab.plot3d(curve_points[:, 0], curve_points[:, 1], curve_points[:, 2],
-                                               color=self.color)
+                    if self.thickness is None:
+                        self.surface = mlab.plot3d(curve_points[:, 0], curve_points[:, 1], curve_points[:, 2],
+                                                   color=self.color)
+                        self.thickness = self.get_thickness()
+                    else:
+                        self.surface = mlab.plot3d(curve_points[:, 0], curve_points[:, 1], curve_points[:, 2],
+                                                   color=self.color, tube_radius=self.thickness)
                 else:
                     n_pts = len(curve_points) - 1
                     lines = np.zeros((n_pts, 2), 'l')
@@ -47,6 +67,7 @@ class CurveView(SpaceView):
                     data.set(points=curve_points)
                     data.set(lines=lines)
                 self.surface.parent.parent.parent.parent.name = self.space.name
+                self.surface.parent.parent.filter.radius = self.thickness
                 self.surface.actor.property.color = self.color
                 self.surface.actor.property.edge_visibility = self.edge_visible
                 self.surface.actor.property.edge_color = self.color
