@@ -59,7 +59,6 @@ class SpaceView(object):
                 self.opacity = 1.0
         else:
             raise ValueError('opacity must be a number between 0 and 1')
-        #self.draw()
 
     def set_cs_visible(self, cs_visible=True):
         self.cs_visible = cs_visible
