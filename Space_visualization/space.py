@@ -10,7 +10,7 @@ from coordinate_system import draw_coordinate_system_axes, update_coordinate_sys
 
 class SpaceView(object):
 
-    def __init__(self, fig, space, scale=1, color=None, points=None, dims=None,
+    def __init__(self, fig, space, scale=1, color=None, opacity=None, points=None, dims=None,
                  cs_visible=True, surface_visible=True, wireframe=False):
         self.fig = fig
         if not isinstance(space, Space):
@@ -31,7 +31,8 @@ class SpaceView(object):
         self.volumetric_data = None
 
         self.color = None
-        self.set_color(color)
+        self.opacity = None
+        self.set_color(color, opacity)
 
     def set_points(self, points=None, dims=None):
         if points is None:
@@ -41,14 +42,24 @@ class SpaceView(object):
             self.points = np.array(points, dtype=np.float)
             self.dims = dims
 
-    def set_color(self, color=None):
+    def set_color(self, color=None, opacity=None):
         if color is None:
             self.color = (1, 0, 0)
         elif isinstance(color, (list, tuple, np.array)):
             self.color = color
         else:
             raise ValueError('color must be an iterable of three color values')
-        self.draw()
+        if opacity is None:
+            self.opacity = 1.0
+        elif isinstance(opacity, (float, int)):
+            self.opacity = float(opacity)
+            if self.opacity < 0.0:
+                self.opacity = 0.0
+            elif self.opacity > 1.0:
+                self.opacity = 1.0
+        else:
+            raise ValueError('opacity must be a number between 0 and 1')
+        #self.draw()
 
     def set_cs_visible(self, cs_visible=True):
         self.cs_visible = cs_visible
@@ -102,6 +113,8 @@ class SpaceView(object):
                     self.surface.actor.property.representation = 'wireframe'
                 else:
                     self.surface.actor.property.representation = 'surface'
+                if self.opacity is not None:
+                    self.surface.actor.property.opacity = self.opacity
         else:
             if self.surface is not None:
                 self.surface.remove()

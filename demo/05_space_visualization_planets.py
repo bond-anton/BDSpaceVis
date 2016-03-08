@@ -2,7 +2,7 @@ import numpy as np
 from mayavi import mlab
 
 from Space import Space
-from Space.Figure.Spherical import *
+from Space.Figure.Sphere import *
 from Space.Curve.Parametric import Arc
 from Space.Coordinates import Cartesian
 import Space_visualization as Visual

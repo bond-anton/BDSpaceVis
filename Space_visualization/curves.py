@@ -9,14 +9,15 @@ from space import SpaceView
 
 class CurveView(SpaceView):
 
-    def __init__(self, fig, curve, scale=1, color=None, edge_visible=False,
+    def __init__(self, fig, curve, scale=1, color=None, opacity=None, edge_visible=False,
                  cs_visible=True, surface_visible=True, wireframe=False, resolution=20, thickness=None):
         assert isinstance(curve, Curve)
         self.resolution = resolution
         self.edge_visible = edge_visible
         self.thickness = None
         points, dims = generate_points(curve, self.resolution)
-        super(CurveView, self).__init__(fig, curve, scale=scale, color=color, points=points, dims=dims,
+        super(CurveView, self).__init__(fig, curve, scale=scale, color=color, opacity=opacity,
+                                        points=points, dims=dims,
                                         cs_visible=cs_visible, surface_visible=surface_visible, wireframe=wireframe)
 
     def set_resolution(self, resolution):
@@ -75,6 +76,8 @@ class CurveView(SpaceView):
                     self.surface.actor.property.representation = 'wireframe'
                 else:
                     self.surface.actor.property.representation = 'surface'
+                if self.opacity is not None:
+                    self.surface.actor.property.opacity = self.opacity
         else:
             if self.surface is not None:
                 self.surface.remove()

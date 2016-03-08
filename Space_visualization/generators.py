@@ -1,7 +1,55 @@
+from __future__ import division
 import numpy as np
 
 
+def generate_parallelepiped(a=np.array([1, 0, 0]), b=np.array([0, 1, 0]), c=np.array([0, 0, 1]),
+                            origin=np.array([0, 0, 0])):
+    cube = np.array([[0, 0, 0], b, a, a + b,
+                     c, b + c, a + c, a + b + c])
+    dims = (2, 2, 2)
+    return cube[:] - origin, dims
+
+
+def generate_parallelepiped_triclinic(a=1, b=1, c=1, alpha=np.pi/2, beta=np.pi/2, gamma=np.pi/2,
+                                      origin=np.array([0, 0, 0])):
+    """
+    generates cuboid with origin offset
+    :param a: length parameter a
+    :param b: length parameter b
+    :param c: length parameter c
+    :param origin: offset point of cuboid center
+    :return: grid points, dimensions tuple
+    """
+    origin = np.array(origin, dtype=np.float)
+    v = np.sqrt(abs(1 - np.cos(alpha)**2 - np.cos(beta)**2 - np.cos(gamma)**2 + 2 * np.cos(alpha)*np.cos(beta)*np.cos(gamma)))
+    v *= a * b * c
+    orthogonalization_matrix = np.array([[a, b * np.cos(gamma), c * np.cos(beta)],
+                                         [0, b * np.sin(gamma),
+                                          c * (np.cos(alpha) - np.cos(beta) * np.cos(gamma)) / np.sin(gamma)],
+                                         [0, 0, v / (a * b * np.sin(gamma))]])
+    vectors_fractional = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]], dtype=np.float)
+    print vectors_fractional
+    vectors_cartesian = np.dot(vectors_fractional, orthogonalization_matrix.T)
+    origin_cartesian = np.dot(origin, orthogonalization_matrix.T)
+    print vectors_cartesian
+    return generate_parallelepiped(a=vectors_cartesian[0], b=vectors_cartesian[1], c=vectors_cartesian[2],
+                                   origin=origin_cartesian)
+
+
 def generate_cuboid(a=1, b=1, c=1, origin=np.array([0, 0, 0])):
+    """
+    generates cuboid with origin offset
+    :param a: length parameter a
+    :param b: length parameter b
+    :param c: length parameter c
+    :param origin: offset point of cuboid center
+    :return: grid points, dimensions tuple
+    """
+    points, dims = generate_parallelepiped(a=a, b=b, c=c, alpha=np.pi/2, beta=np.pi/2, gamma=np.pi/2, origin=origin)
+    return points, dims
+
+
+def generate_cuboid2(a=1, b=1, c=1, origin=np.array([0, 0, 0])):
     """
     generates cuboid with origin offset
     :param a: length parameter a

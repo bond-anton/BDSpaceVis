@@ -33,6 +33,7 @@ mlab.points3d(points[:, 0], points[:, 1], points[:, 2], scale_factor=0.1)
 helix_path = helix_between_two_points(coordinate_system, point1, point2, radius=1, loops=7, right=True)
 helix_path_view = Visual.CurveView(fig=fig, curve=helix_path)
 helix_path_view.draw()
+helix_path_view.set_color((1, 1, 0), 0.3)
 
 '''
 path = arc_between_two_points(coordinate_system, point1, point2, radius=1, right=True)
