@@ -45,23 +45,9 @@ def generate_cuboid(a=1, b=1, c=1, origin=np.array([0, 0, 0])):
     :param origin: offset point of cuboid center
     :return: grid points, dimensions tuple
     """
-    points, dims = generate_parallelepiped(a=a, b=b, c=c, alpha=np.pi/2, beta=np.pi/2, gamma=np.pi/2, origin=origin)
+    points, dims = generate_parallelepiped(a=np.array([a, 0, 0]), b=np.array([0, b, 0]), c=np.array([0, 0, c]),
+                                           origin=origin)
     return points, dims
-
-
-def generate_cuboid2(a=1, b=1, c=1, origin=np.array([0, 0, 0])):
-    """
-    generates cuboid with origin offset
-    :param a: length parameter a
-    :param b: length parameter b
-    :param c: length parameter c
-    :param origin: offset point of cuboid center
-    :return: grid points, dimensions tuple
-    """
-    cube = np.array([[0, 0, 0], [0, b, 0], [a, 0, 0], [a, b, 0],
-                     [0, 0, c], [0, b, c], [a, 0, c], [a, b, c]])
-    dims = (2, 2, 2)
-    return cube[:] - origin, dims
 
 
 def generate_sphere(phi, theta, r):
