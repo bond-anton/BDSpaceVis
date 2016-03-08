@@ -4,7 +4,7 @@ import numpy as np
 from Space.Figure import Figure
 from Space.Figure.Sphere import SphericalShape, SphericalWedge, SphericalSectionWedge
 from Space.Figure.Cylinder import CylindricalWedge
-from Space.Figure.Cube import Parallelepiped, Cuboid, Cube
+from Space.Figure.Cube import Parallelepiped
 
 import generators
 from space import SpaceView
