@@ -5,6 +5,7 @@ from mayavi import mlab
 from Space import Space
 from Space.Figure.Sphere import *
 from Space.Figure.Cylinder import CylindricalWedge, Cylinder
+from Space.Figure.Cone import ConicalWedge
 from Space.Figure.Cube import Parallelepiped, ParallelepipedTriclinic, Cuboid, Cube
 from Space.Curve.Parametric import Arc
 from Space.Coordinates import Cartesian
@@ -20,7 +21,8 @@ joint_disc = Cylinder(name='Moon', coordinate_system=joint_disc_cs,
 rod = Cylinder(name='Moon', coordinate_system=Cartesian(origin=[0.0, 0.0, 0.0]),
                r_inner=0.3, r_outer=0.5, z=[0.0, 4])
 box = ParallelepipedTriclinic(name='Parallelepiped', a=1, b=1, c=1, alpha=np.pi/4, beta=np.pi/4, gamma=np.pi/4)
-wedge = SphericalWedge(r_inner=0.5, phi=2*np.pi*0.7, theta=[np.pi/4*0, np.pi/3])
+#wedge = SphericalWedge(r_inner=5, r_outer=7, phi=2*np.pi*0.7, theta=[np.pi/4*0, np.pi/3])
+wedge = ConicalWedge(phi=2*np.pi*0.5, theta=np.pi/4, z=np.array([-1.0, 1.0]), z_offset=0.2, r_min=0.3)
 print 'V =', wedge.volume()
 print 'S = ', wedge.surface_area()
 joint_vis = Visual.FigureView(fig, joint_disc, color=(0, 1, 0))

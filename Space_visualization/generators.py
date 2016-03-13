@@ -120,7 +120,7 @@ def generate_cylinder(phi, z, r):
     return points, dims
 
 
-def generate_cone(phi, z=np.array([0, 100.0]), theta=np.pi/4, z_offset=5, r_min=20):
+def generate_cone(phi, z=np.array([0, 1.0]), theta=np.pi/4, z_offset=0.1, r_min=0.2):
     """
     Generates structured grid of truncated hollow thick cone
     :param phi: azimuthal angles array
@@ -138,9 +138,12 @@ def generate_cone(phi, z=np.array([0, 100.0]), theta=np.pi/4, z_offset=5, r_min=
     start = 0
     for z_plane in z:
         if z_offset != 0:
-            r = np.array([(z_min + z_plane + z_offset) * np.tan(theta), (z_min + z_plane) * np.tan(theta)])
+            cone_z = z_min + abs(z_plane) - z_offset
+            if cone_z < 0:
+                cone_z = 0
+            r = np.array([cone_z * np.tan(theta), (z_min + abs(z_plane)) * np.tan(theta)])
         else:
-            r = np.array([(z_min + z_plane) * np.tan(theta)])
+            r = np.array([(z_min + abs(z_plane)) * np.tan(theta)])
         x_plane = (np.cos(phi) * r[:, None]).ravel()
         y_plane = (np.sin(phi) * r[:, None]).ravel()
         end = start + len(x_plane)
