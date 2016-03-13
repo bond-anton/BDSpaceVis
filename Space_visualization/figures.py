@@ -2,7 +2,7 @@ from __future__ import division
 import numpy as np
 
 from Space.Figure import Figure
-from Space.Figure.Sphere import SphericalShape, SphericalWedge, SphericalSectionWedge
+from Space.Figure.Sphere import SphericalShape, SphericalWedge, SphericalSegmentWedge
 from Space.Figure.Cylinder import CylindricalWedge
 from Space.Figure.Cube import Parallelepiped
 
@@ -41,9 +41,10 @@ def generate_points(figure, resolution=20):
         phi = np.linspace(0.0, figure.phi, angular_resolution(figure.phi, resolution), endpoint=True)
         r = np.array([figure.r_inner, figure.r_outer], dtype=np.float)
         if isinstance(figure, SphericalWedge):
-            theta = np.linspace(0.0, figure.theta, angular_resolution(figure.theta, resolution), endpoint=True)
+            theta = np.linspace(figure.theta[0], figure.theta[1],
+                                angular_resolution(figure.theta[1] - figure.theta[0], resolution), endpoint=True)
             points, dims = generators.generate_sphere(phi, theta, r)
-        elif isinstance(figure, SphericalSectionWedge):
+        elif isinstance(figure, SphericalSegmentWedge):
             z = np.array([figure.h1, figure.h2], dtype=np.float)
             points, dims = generators.generate_spherical_section(phi, z, r)
     elif isinstance(figure, CylindricalWedge):

@@ -30,4 +30,5 @@ for phi1 in np.linspace(0, 360, M, endpoint=True):
             # CS_box visualize CS as a cube colored according to Euler's angles
             Visual.draw_coordinate_system_box(fig, CS, scale=scale, draw_axes=False)
 # mlab.outline(extent=[0, 360, 0, 180, 0, 360])  # uncomment to draw white outline
+
 mlab.show()

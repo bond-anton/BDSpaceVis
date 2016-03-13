@@ -20,15 +20,20 @@ joint_disc = Cylinder(name='Moon', coordinate_system=joint_disc_cs,
 rod = Cylinder(name='Moon', coordinate_system=Cartesian(origin=[0.0, 0.0, 0.0]),
                r_inner=0.3, r_outer=0.5, z=[0.0, 4])
 box = ParallelepipedTriclinic(name='Parallelepiped', a=1, b=1, c=1, alpha=np.pi/4, beta=np.pi/4, gamma=np.pi/4)
-print 'V =', box.volume()
-print 'S = ', box.surface_area()
+wedge = SphericalWedge(r_inner=0.5, phi=2*np.pi*0.7, theta=[np.pi/4*0, np.pi/3])
+print 'V =', wedge.volume()
+print 'S = ', wedge.surface_area()
 joint_vis = Visual.FigureView(fig, joint_disc, color=(0, 1, 0))
 rod_vis = Visual.FigureView(fig, rod)
 box_vis = Visual.FigureView(fig, box)
+wedge_vis = Visual.FigureView(fig, wedge)
 
 #joint_vis.draw()
 #rod_vis.draw()
-box_vis.set_wireframe(True)
-box_vis.draw()
+#box_vis.set_wireframe(True)
+#box_vis.draw()
+
+wedge_vis.set_wireframe(True)
+wedge_vis.draw()
 
 mlab.show()
