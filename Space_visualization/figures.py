@@ -5,6 +5,7 @@ from Space.Figure import Figure
 from Space.Figure.Sphere import SphericalShape, SphericalWedge, SphericalSegmentWedge
 from Space.Figure.Cylinder import CylindricalWedge
 from Space.Figure.Cone import ConicalWedge
+from Space.Figure.Torus import ToricWedge
 from Space.Figure.Cube import Parallelepiped
 
 import generators
@@ -58,6 +59,11 @@ def generate_points(figure, resolution=20):
         z = np.array(figure.z, dtype=np.float)
         points, dims = generators.generate_cone(phi, z, theta=figure.theta,
                                                 z_offset=figure.z_offset, r_min=figure.r_min)
+    elif isinstance(figure, ToricWedge):
+        phi = np.linspace(0.0, figure.phi, angular_resolution(figure.phi, resolution), endpoint=True)
+        theta = np.linspace(figure.theta[0], figure.theta[1],
+                            angular_resolution(figure.theta[1] - figure.theta[0], resolution), endpoint=True)
+        points, dims = generators.generate_torus(r_torus=figure.r_torus, r_tube=figure.r_tube, phi=phi, theta=theta)
     elif isinstance(figure, Parallelepiped):
         points, dims = generators.generate_parallelepiped(a=figure.vectors[0], b=figure.vectors[1], c=figure.vectors[2],
                                                           origin=np.array([0, 0, 0]))

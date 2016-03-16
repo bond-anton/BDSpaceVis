@@ -183,3 +183,13 @@ def generate_cone_with_cylindrical_hole(phi, z=np.array([0, 100.0]), theta=np.pi
         start = end
     dims = (len(phi), len(r), len(z))
     return points, dims
+
+
+def generate_torus(r_torus, r_tube, phi, theta):
+    points, dims = generate_cylinder(phi=theta, z=phi, r=r_tube)
+    points = points[:, [0, 2, 1]]
+    points[:, 0] += r_torus
+    torus_points = np.copy(points)
+    torus_points[:, 0] *= np.cos(points[:, 1])
+    torus_points[:, 1] = points[:, 0] * np.sin(points[:, 1])
+    return torus_points, dims
