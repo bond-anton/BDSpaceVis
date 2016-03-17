@@ -36,14 +36,16 @@ def draw_coordinate_system_axes(fig, coordinate_system, offset=0.0, scale=1.0, d
     data = arrows.parent.parent
     data.name = coordinate_system.name
     glyph_scale = arrows.glyph.glyph.scale_factor * 1.1
-    label_col = [(1, 0, 0), (0, 1, 0), (0, 0, 1)]
+    # label_col = [(1, 0, 0), (0, 1, 0), (0, 0, 1)]
     labels = []
     if draw_labels:
         for i in range(3):
-            labels.append(mlab.text3d(points[i, 0] + glyph_scale * coordinate_system.basis[0, i],
-                                      points[i, 1] + glyph_scale * coordinate_system.basis[1, i],
-                                      points[i, 2] + glyph_scale * coordinate_system.basis[2, i],
-                                      coordinate_system.labels[i], color=label_col[i], scale=0.1 * scale))
+            labels.append(mlab.text(points[i, 0] + glyph_scale * coordinate_system.basis[0, i],
+                                    points[i, 1] + glyph_scale * coordinate_system.basis[1, i],
+                                    coordinate_system.labels[i],
+                                    z=points[i, 2] + glyph_scale * coordinate_system.basis[2, i],
+                                    # color=label_col[i],
+                                    width=0.1 * scale))
     return arrows, labels
 
 
@@ -74,10 +76,10 @@ def update_coordinate_system_axes(coordinate_system, arrows, labels, offset=0.0,
     data.mlab_source.w = lengths[2, :]
     glyph_scale = arrows.glyph.glyph.scale_factor * 1.1
     for i in range(len(labels)):
-        labels[i].position = np.array([points[i, 0] + glyph_scale * coordinate_system.basis[0, i],
-                                       points[i, 1] + glyph_scale * coordinate_system.basis[1, i],
-                                       points[i, 2] + glyph_scale * coordinate_system.basis[2, i]])
-        labels[i].scale = np.ones(3) * 0.1 * scale
+        labels[i].x_position = points[i, 0] + glyph_scale * coordinate_system.basis[0, i]
+        labels[i].y_position = points[i, 1] + glyph_scale * coordinate_system.basis[1, i]
+        labels[i].z_position = points[i, 2] + glyph_scale * coordinate_system.basis[2, i]
+        labels[i].width = 0.1 * scale
     return arrows, labels
 
 
