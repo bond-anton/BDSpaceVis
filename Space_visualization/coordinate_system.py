@@ -40,10 +40,10 @@ def draw_coordinate_system_axes(fig, coordinate_system, offset=0.0, scale=1.0, d
     labels = []
     if draw_labels:
         for i in range(3):
-            labels.append(mlab.text(points[i, 0] + glyph_scale * coordinate_system.basis[0, i],
-                                    points[i, 1] + glyph_scale * coordinate_system.basis[1, i],
+            labels.append(mlab.text(points[i, 0] + glyph_scale * coordinate_system.basis[i, 0],
+                                    points[i, 1] + glyph_scale * coordinate_system.basis[i, 1],
                                     coordinate_system.labels[i],
-                                    z=points[i, 2] + glyph_scale * coordinate_system.basis[2, i],
+                                    z=points[i, 2] + glyph_scale * coordinate_system.basis[i, 2],
                                     # color=label_col[i],
                                     width=0.1 * scale))
     return arrows, labels
@@ -76,9 +76,9 @@ def update_coordinate_system_axes(coordinate_system, arrows, labels, offset=0.0,
     data.mlab_source.w = lengths[2, :]
     glyph_scale = arrows.glyph.glyph.scale_factor * 1.1
     for i in range(len(labels)):
-        labels[i].x_position = points[i, 0] + glyph_scale * coordinate_system.basis[0, i]
-        labels[i].y_position = points[i, 1] + glyph_scale * coordinate_system.basis[1, i]
-        labels[i].z_position = points[i, 2] + glyph_scale * coordinate_system.basis[2, i]
+        labels[i].x_position = points[i, 0] + glyph_scale * coordinate_system.basis[i, 0]
+        labels[i].y_position = points[i, 1] + glyph_scale * coordinate_system.basis[i, 1]
+        labels[i].z_position = points[i, 2] + glyph_scale * coordinate_system.basis[i, 2]
         labels[i].width = 0.1 * scale
     return arrows, labels
 

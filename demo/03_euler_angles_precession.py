@@ -21,15 +21,16 @@ CS_1.set_euler_angles(CS_1.euler_angles + np.array([0, np.deg2rad(Phi), 0]))  # 
 
 fig = mlab.figure('CS demo', bgcolor=(0, 0, 0))  # Create the mayavi figure
 
+cs_box_1, arrows_1, labels_1 = Visual.draw_coordinate_system_box(fig, CS_1, draw_labels=True)
+arrows_2, labels_2 = Visual.draw_coordinate_system_axes(fig, CS_2, scale=2, draw_labels=True)
+
+@mlab.show
 @mlab.animate(delay=10)
 def anim():
-    cs_box_1, arrows_1, labels_1 = Visual.draw_coordinate_system_box(fig, CS_1)
-    arrows_2, labels_2 = Visual.draw_coordinate_system_axes(fig, CS_2, scale=2)
-    while True:
+    while 1:
         delta_eulers = np.array([direction_prec * np.deg2rad(step_prec), 0, direction_rot * np.deg2rad(step_rot)])
         CS_1.set_euler_angles(CS_1.euler_angles + delta_eulers)
-        cs_box_1, arrows_1, labels_1 = Visual.update_coordinate_system_box(CS_1, cs_box_1, arrows_1, labels_1)
+        Visual.update_coordinate_system_box(CS_1, cs_box_1, arrows_1, labels_1)
         yield
 
 anim()
-mlab.show()
