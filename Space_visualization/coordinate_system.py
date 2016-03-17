@@ -9,8 +9,8 @@ import generators
 
 def euler_color(euler_angles):
     r = euler_angles[0] / (2 * np.pi)
-    b = euler_angles[2] / (np.pi * 2)
     g = euler_angles[1] / np.pi
+    b = euler_angles[2] / (2 * np.pi)
     return r, g, b
 
 
