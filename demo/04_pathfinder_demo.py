@@ -3,7 +3,7 @@ from mayavi import mlab
 
 from Space.Coordinates import Cartesian
 from Space.Curve.Parametric import Helix
-from Space.Pathfinder import helix_between_two_points, arc_between_two_points
+from Space.Pathfinder import line_between_two_points, helix_between_two_points, arc_between_two_points
 import Space_visualization as Visual
 
 coordinate_system = Cartesian()
@@ -30,18 +30,21 @@ point2 = np.array([2, 2, 0])
 points = np.vstack((coordinate_system.to_parent(point1), coordinate_system.to_parent(point2)))
 mlab.points3d(points[:, 0], points[:, 1], points[:, 2], scale_factor=0.1)
 
+shortest_path = line_between_two_points(coordinate_system, point1, point2)
+shortest_path_view = Visual.CurveView(fig=fig, curve=shortest_path)
+shortest_path_view.set_color((0.3, 0.75, 0.2), 0.5)
+shortest_path_view.draw()
+
 helix_path = helix_between_two_points(coordinate_system, point1, point2, radius=1, loops=7, right=True)
 helix_path_view = Visual.CurveView(fig=fig, curve=helix_path)
-helix_path_view.draw()
 helix_path_view.set_color((1, 1, 0), 0.3)
+helix_path_view.draw()
+helix_path_view.set_cs_visible(False)
 
-'''
-path = arc_between_two_points(coordinate_system, point1, point2, radius=1, right=True)
+arc_path = arc_between_two_points(coordinate_system, point1, point2, radius=1, right=True)
+arc_path_view = Visual.CurveView(fig=fig, curve=arc_path)
+arc_path_view.set_color((0, 0, 1), 0.7)
+arc_path_view.draw()
+arc_path_view.set_cs_visible(True)
 
-t = np.linspace(path.start, path.stop, num=101 * (path.stop - path.start) / (2 * np.pi), endpoint=True)
-points = path.generate_points(t)
-global_points = path.coordinate_system.to_parent(points)
-mlab.plot3d(global_points[:, 0], global_points[:, 1], global_points[:, 2], color=(0, 1, 0))
-Visual.draw_coordinate_system_axes(fig, path.coordinate_system)
-'''
 mlab.show()
