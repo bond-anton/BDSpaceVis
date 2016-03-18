@@ -41,7 +41,7 @@ helix_path_view.set_color((1, 1, 0), 0.3)
 helix_path_view.draw()
 helix_path_view.set_cs_visible(False)
 
-arc_path = arc_between_two_points(coordinate_system, point1, point2, radius=1, right=True)
+arc_path = arc_between_two_points(coordinate_system, point1, point2, radius=1, right=False)
 arc_path_view = Visual.CurveView(fig=fig, curve=arc_path)
 arc_path_view.set_color((0, 0, 1), 0.7)
 arc_path_view.draw()
