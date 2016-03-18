@@ -5,3 +5,4 @@ from space import SpaceView
 from figures import FigureView
 from curves import CurveView
 from utils import gen_space_views, draw_space
+from _version import __version__
