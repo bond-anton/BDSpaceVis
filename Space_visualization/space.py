@@ -28,7 +28,6 @@ class SpaceView(object):
         self.points = None
         self.dims = None
         self.set_points(points, dims)
-        self.volumetric_data = None
 
         self.color = None
         self.opacity = None
@@ -123,8 +122,6 @@ class SpaceView(object):
         """
         empty interface stub
         """
-        if self.volumetric_data is not None:
-            print 'Volumetric data rendering is not realized yet'
 
     def draw(self):
         self.draw_cs()
