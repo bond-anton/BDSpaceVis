@@ -11,7 +11,7 @@ import Space_visualization as Visual
 class ChargedBall(Field):
 
     def scalar_field(self, xyz):
-        print len(xyz.shape)
+        #print len(xyz.shape)
         x, y, z = xyz[0], xyz[1], xyz[2]
         return np.sin(x*y*z)/(x*y*z)
 
@@ -32,5 +32,8 @@ ball_field_vis = Visual.FieldView(fig, electrostatic_field)
 grid = np.mgrid[-10:10:100j, -20:20:200j, -10:10:100j]
 ball_field_vis.set_grid(grid)
 ball_field_vis.draw()
+#charged_ball_vis.draw()
+ball_field_vis.draw()
+#ball_field_vis.draw()
 
 mlab.show()
