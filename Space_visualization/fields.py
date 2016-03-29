@@ -28,7 +28,7 @@ class FieldView(SpaceView):
 
     def set_grid(self, grid):
         if grid is None:
-            self.grid = np.mgrid[-1:1:10j, -1:1:10j, -1:1:10j]
+            self.grid = np.mgrid[-10:10:5j, -10:10:5j, -10:10:5j]
         else:
             self.grid = grid
         self.update_scalar_data()
@@ -43,10 +43,12 @@ class FieldView(SpaceView):
         self.draw()
 
     def update_scalar_data(self):
-        self.scalar_data = self.space.scalar_field(self.grid)
+        grid_xyz = self.grid.reshape(3, -1).T
+        self.scalar_data = self.space.scalar_field(grid_xyz).T.reshape(np.array(self.grid.shape)[1:])
 
     def update_vector_data(self):
-        self.vector_data = self.space.vector_field(self.grid)
+        grid_xyz = self.grid.reshape(3, -1).T
+        self.vector_data = self.space.vector_field(grid_xyz).T.reshape(self.grid.shape)
 
     def draw_volume(self):
         if self.vector_field_visible or self.scalar_field_visible:
@@ -70,7 +72,7 @@ class FieldView(SpaceView):
                 self.vector_field.vector_data = np.rollaxis(self.vector_data, 0, 4)
                 self.vector_field.scalar_data = self.scalar_data
             if self.vector_volume is None and self.vector_field_visible:
-                self.vector_volume = mlab.pipeline.vectors(self.vector_field, mask_points=20)
+                self.vector_volume = mlab.pipeline.vectors(self.vector_field)
             if self.scalar_volume is None and self.scalar_field_visible:
                 self.scalar_volume = mlab.pipeline.volume(self.vector_field)
         if not self.vector_field_visible:
