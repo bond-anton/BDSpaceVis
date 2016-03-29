@@ -29,12 +29,12 @@ class ChargedBall(Field):
 
 pos_charged_ball = Sphere(name='Pos Charged Ball', r_outer=1.0)
 pos_charged_ball.coordinate_system.origin += np.array([-5, 0, 0])
-pos_electrostatic_field = ChargedBall(q=1, r=1, name='pos ball field', field_type='electrostatic')
+pos_electrostatic_field = ChargedBall(q=1, r=1, name='Pos Charged ball field', field_type='electrostatic')
 pos_charged_ball.add_element(pos_electrostatic_field)
 
 neg_charged_ball = Sphere(name='Neg Charged Ball', r_outer=1.0)
 neg_charged_ball.coordinate_system.origin += np.array([5, 0, 0])
-neg_electrostatic_field = ChargedBall(q=-1, r=1, name='neg ball field', field_type='electrostatic')
+neg_electrostatic_field = ChargedBall(q=-1, r=1, name='Neg Charged ball field', field_type='electrostatic')
 neg_charged_ball.add_element(neg_electrostatic_field)
 
 
