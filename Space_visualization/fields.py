@@ -89,3 +89,19 @@ class FieldView(SpaceView):
         if self.scalar_volume is not None:
             self.scalar_volume.remove()
         self.scalar_volume = None
+
+"""
+stream = mlab.flow(grid[0], grid[1], grid[2],
+                                  self.vector_data[0],
+                                  self.vector_data[1],
+                                  self.vector_data[2],
+                                  name=self.space.name,
+                                  seed_scale=0.5, seed_resolution=1, seedtype='sphere')
+                stream.stream_tracer.maximum_propagation = 20.0  # the maximum length each step should reach - lowered to avoid messy output
+                stream.stream_tracer.integration_direction = 'both'  # integrate in both directions
+                stream.seed.widget.center = [5, 0, 0]  # set the stream widget to the same position as the charge
+                stream.seed.widget.radius = 1  # and its radius a bit bigger than the grid size
+                stream.seed.widget.theta_resolution = 30  # make the resolution high enough to give a fair number of lines
+                stream.seed.widget.phi_resolution = 10  # but we are looking at a plane for now, so let's not have any resolution in the z-direction
+                #stream.seed.widget.enabled = False
+"""
