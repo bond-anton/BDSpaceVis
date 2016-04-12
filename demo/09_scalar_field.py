@@ -8,6 +8,7 @@ from Space.Coordinates import transforms as gt
 
 import Space_visualization as Visual
 
+
 class ChargedBall(Field):
 
     def __init__(self, q, r, name='Charged ball field', field_type='electrostatic'):

@@ -1,4 +1,4 @@
-from __future__ import division
+from __future__ import division, print_function
 import numpy as np
 
 from Space.Figure import Figure
@@ -8,8 +8,8 @@ from Space.Figure.Cone import ConicalWedge
 from Space.Figure.Torus import ToricWedge
 from Space.Figure.Cube import Parallelepiped
 
-import generators
-from space import SpaceView
+from Space_visualization import generators
+from Space_visualization.space import SpaceView
 
 
 class FigureView(SpaceView):

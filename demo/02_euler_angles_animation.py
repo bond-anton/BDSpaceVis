@@ -1,5 +1,6 @@
 #!/bin/env python
 
+from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
@@ -9,12 +10,12 @@ import Space_visualization as Visual
 # Create cartesian coordinate system
 
 # if you don't pass arguments the basis coincide with 'Absolute' (mayavi) coordinate system
-CS_1 = Cartesian(origin=np.array([0, 0, 0]))
-CS_2 = Cartesian(origin=np.array([3, 0, 0]))
-CS_3 = Cartesian(origin=np.array([6, 0, 0]))
-CS_4 = Cartesian(origin=np.array([0, 3, 0]))
-CS_5 = Cartesian(origin=np.array([3, 3, 0]))
-CS_6 = Cartesian(origin=np.array([6, 3, 0]))
+CS_1 = Cartesian(origin=np.array([0, 0, 0]), euler_angles_convention='bunge')
+CS_2 = Cartesian(origin=np.array([3, 0, 0]), euler_angles_convention='bunge')
+CS_3 = Cartesian(origin=np.array([6, 0, 0]), euler_angles_convention='bunge')
+CS_4 = Cartesian(origin=np.array([0, 3, 0]), euler_angles_convention='bunge')
+CS_5 = Cartesian(origin=np.array([3, 3, 0]), euler_angles_convention='bunge')
+CS_6 = Cartesian(origin=np.array([6, 3, 0]), euler_angles_convention='bunge')
 step = 1.0  # in degrees
 # to visualise the coordinate system basis the module Visual is used
 
@@ -36,9 +37,9 @@ def anim():
         CS_1.rotate_axis_angle(np.array([0, 1, 0]), np.deg2rad(step))  # this is inplace transform
         CS_2.rotate_axis_angle(np.array([1, 0, 0]), np.deg2rad(step))  # this is inplace transform
         CS_3.rotate_axis_angle(np.array([0, 0, 1]), np.deg2rad(step))  # this is inplace transform
-        CS_4.set_euler_angles(CS_4.euler_angles + np.array([0, 0, np.deg2rad(step)]))
-        CS_5.set_euler_angles(CS_5.euler_angles + direction * np.array([0, np.deg2rad(step), 0]))
-        CS_6.set_euler_angles(CS_6.euler_angles + np.array([np.deg2rad(step), 0, 0]))
+        CS_4.euler_angles += np.array([0, 0, np.deg2rad(step)])
+        CS_5.euler_angles += direction * np.array([0, np.deg2rad(step), 0])
+        CS_6.euler_angles += np.array([np.deg2rad(step), 0, 0])
         if direction == 1 and abs(np.pi - CS_5.euler_angles[1]) < np.deg2rad(step):
             direction *= -1
         elif direction == -1 and abs(CS_5.euler_angles[1]) < np.deg2rad(step):

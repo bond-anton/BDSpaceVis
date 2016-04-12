@@ -1,4 +1,4 @@
-from __future__ import division
+from __future__ import division, print_function
 import numpy as np
 
 
@@ -28,10 +28,10 @@ def generate_parallelepiped_triclinic(a=1, b=1, c=1, alpha=np.pi/2, beta=np.pi/2
                                           c * (np.cos(alpha) - np.cos(beta) * np.cos(gamma)) / np.sin(gamma)],
                                          [0, 0, v / (a * b * np.sin(gamma))]])
     vectors_fractional = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]], dtype=np.float)
-    print vectors_fractional
+    print(vectors_fractional)
     vectors_cartesian = np.dot(vectors_fractional, orthogonalization_matrix.T)
     origin_cartesian = np.dot(origin, orthogonalization_matrix.T)
-    print vectors_cartesian
+    print(vectors_cartesian)
     return generate_parallelepiped(a=vectors_cartesian[0], b=vectors_cartesian[1], c=vectors_cartesian[2],
                                    origin=origin_cartesian)
 

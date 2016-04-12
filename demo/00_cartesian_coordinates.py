@@ -1,5 +1,6 @@
 #!/bin/env python
 
+from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
@@ -8,7 +9,7 @@ import Space_visualization as Visual
 
 # Create cartesian coordinate system
 
-CS = Cartesian()  # if you don't pass arguments the basis coincide with 'Absolute' (mayavi) coordinate system
+CS = Cartesian(euler_angles_convention='Bunge')  # if you don't pass arguments the basis coincide with 'Absolute' (mayavi) coordinate system
 
 # to visualise the coordinate system basis the module Visual is used
 
@@ -24,7 +25,7 @@ CS.rotate_euler_angles([0, np.pi * 0.5, 0])
 CS.rotate_euler_angles([0, np.pi * 0.5, 0])
 CS.rotate_axis_angle(np.array([1, 1, 1]), np.deg2rad(60))
 #CS.rotate_axis_angle(np.array([1, 0, 0]), np.pi * 0.5)
-print CS.euler_angles
+print(CS.euler_angles)
 #CS.rotate_axis_angle(np.array([1, 0, 0]), np.pi * 0.5)
 #print CS.euler_angles
 cube_surface, arrows, labels = Visual.update_coordinate_system_box(CS, cube_surface, arrows, labels, scale=1)

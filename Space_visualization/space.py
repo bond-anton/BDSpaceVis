@@ -1,11 +1,11 @@
-from __future__ import division
+from __future__ import division, print_function
 import numpy as np
 
 from mayavi import mlab
 from tvtk.api import tvtk
 
 from Space import Space
-from coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
+from Space_visualization.coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
 
 
 class SpaceView(object):
