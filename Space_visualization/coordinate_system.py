@@ -1,16 +1,22 @@
-from __future__ import division
+from __future__ import division, print_function
 import numpy as np
 
 from mayavi import mlab
 from tvtk.api import tvtk
 
-import generators
+from Space_visualization import generators
 
 
 def euler_color(euler_angles):
-    r = euler_angles[0] / (2 * np.pi)
+    r = (euler_angles[0] + np.pi) / (2 * np.pi)
     g = euler_angles[1] / np.pi
-    b = euler_angles[2] / (2 * np.pi)
+    b = (euler_angles[2] + np.pi) / (2 * np.pi)
+    if np.allclose(r, 0):
+        r = 0
+    if np.allclose(g, 0):
+        g = 0
+    if np.allclose(b, 0):
+        b = 0
     return r, g, b
 
 

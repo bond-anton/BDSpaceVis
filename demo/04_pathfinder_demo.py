@@ -1,3 +1,4 @@
+from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
@@ -17,7 +18,7 @@ right_helix = Helix(name='Right Helix', coordinate_system=coordinate_system,
 left_helix = Helix(name='Left Helix', coordinate_system=coordinate_system,
                    radius=2, pitch=0.5, start=0, stop=np.pi * 2, right=False)
 
-print 'Helix length:', left_helix.length()
+print('Helix length:', left_helix.length())
 
 right_helix_view = Visual.CurveView(fig=fig, curve=right_helix)
 right_helix_view.draw()

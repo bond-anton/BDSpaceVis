@@ -1,11 +1,11 @@
-from __future__ import division
+from __future__ import division, print_function
 import numpy as np
 
 from mayavi import mlab
 from tvtk.api import tvtk
 
 from Space import Space
-from coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
+from Space_visualization.coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
 
 
 class SpaceView(object):
@@ -28,7 +28,6 @@ class SpaceView(object):
         self.points = None
         self.dims = None
         self.set_points(points, dims)
-        self.volumetric_data = None
 
         self.color = None
         self.opacity = None
@@ -123,8 +122,6 @@ class SpaceView(object):
         """
         empty interface stub
         """
-        if self.volumetric_data is not None:
-            print 'Volumetric data rendering is not realized yet'
 
     def draw(self):
         self.draw_cs()

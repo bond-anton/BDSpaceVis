@@ -1,10 +1,10 @@
-from __future__ import division
+from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 from Space.Curve import Curve
 from Space.Curve.Parametric import ParametricCurve
 
-from space import SpaceView
+from Space_visualization.space import SpaceView
 
 
 class CurveView(SpaceView):
