@@ -10,7 +10,7 @@ from Space.Figure.Torus import ToricWedge
 from Space.Figure.Cube import Parallelepiped, ParallelepipedTriclinic, Cuboid, Cube
 from Space.Curve.Parametric import Arc
 from Space.Coordinates import Cartesian
-import Space_visualization as Visual
+import BDSpaceVis as Visual
 
 fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 0.5))  # Create the mayavi figure
 

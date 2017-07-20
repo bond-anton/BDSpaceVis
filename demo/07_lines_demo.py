@@ -4,7 +4,7 @@ from mayavi import mlab
 
 from Space.Coordinates import Cartesian
 from Space.Curve.Parametric import Line
-import Space_visualization as Visual
+import BDSpaceVis as Visual
 
 coordinate_system = Cartesian()
 fig = mlab.figure('CS demo', bgcolor=(0, 0, 0))

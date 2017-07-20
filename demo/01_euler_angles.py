@@ -5,7 +5,7 @@ import numpy as np
 from mayavi import mlab
 
 from Space.Coordinates import Cartesian
-import Space_visualization as Visual
+import BDSpaceVis as Visual
 
 # Euler's angles are used in the proper notation Z (phi1) - X' (Phi) - Z" (phi2)
 # phi1 and phi2 are defined to have modulo 2*pi radians [-pi; pi] or [0; 2*pi]

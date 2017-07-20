@@ -5,7 +5,7 @@ import numpy as np
 from mayavi import mlab
 
 from Space.Coordinates import Cartesian
-import Space_visualization as Visual
+import BDSpaceVis as Visual
 
 # Create cartesian coordinate system
 

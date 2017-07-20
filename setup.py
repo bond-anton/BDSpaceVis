@@ -6,7 +6,7 @@ import re
 
 
 here = path.abspath(path.dirname(__file__))
-package_name = 'Space_visualization'
+package_name = 'BDSpaceVis'
 version_file = path.join(here, package_name, '_version.py')
 with open(version_file, 'rt') as f:
     version_file_line = f.read()
@@ -25,10 +25,10 @@ setup(
     name=package_name,
     version=version_string,
 
-    description='Mayavi based visualisation tools for Space package',
+    description='Mayavi based visualisation tools for BDSpace package',
     long_description=long_description,
 
-    url='https://github.com/bond-anton/Space_visualization',
+    url='https://github.com/bond-anton/BDSpaceVis',
 
     author='Anton Bondarenko',
     author_email='bond.anton@gmail.com',
@@ -46,10 +46,12 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
 
     keywords='visualization 3D Space Mayavi',
 
     packages=find_packages(exclude=['demo', 'tests', 'docs', 'contrib']),
-    install_requires=['Space', 'mayavi'],
+    install_requires=['BDSpace>=0.2.2', 'mayavi'],
+    dependency_links=['https://github.com/bond-anton/BDSpace/tarball/master#egg=BDSpace-0.2.2']
 )

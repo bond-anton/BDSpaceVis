@@ -1,9 +1,0 @@
-from Space_visualization.coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
-from Space_visualization.coordinate_system import draw_coordinate_system_box, update_coordinate_system_box
-from Space_visualization.coordinate_system import euler_color
-from Space_visualization.space import SpaceView
-from Space_visualization.fields import FieldView
-from Space_visualization.figures import FigureView
-from Space_visualization.curves import CurveView
-from Space_visualization.utils import gen_space_views, draw_space
-from Space_visualization._version import __version__

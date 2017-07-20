@@ -4,7 +4,7 @@ from mayavi import mlab
 from Space.Curve import Curve
 from Space.Curve.Parametric import ParametricCurve
 
-from Space_visualization.space import SpaceView
+from BDSpaceVis.space import SpaceView
 
 
 class CurveView(SpaceView):

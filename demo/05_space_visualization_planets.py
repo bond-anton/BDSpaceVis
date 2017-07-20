@@ -6,7 +6,7 @@ from Space import Space
 from Space.Figure.Sphere import *
 from Space.Curve.Parametric import Arc
 from Space.Coordinates import Cartesian
-import Space_visualization as Visual
+import BDSpaceVis as Visual
 
 
 solar_system = Space('Solar System')

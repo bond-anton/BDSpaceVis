@@ -4,7 +4,7 @@ import numpy as np
 from mayavi import mlab
 from tvtk.api import tvtk
 
-from Space_visualization import generators
+from BDSpaceVis import generators
 
 
 def euler_color(euler_angles):

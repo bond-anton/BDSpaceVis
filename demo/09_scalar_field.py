@@ -6,7 +6,7 @@ from Space.Figure.Sphere import Sphere
 from Space.Field import Field, SuperposedField
 from Space.Coordinates import transforms as gt
 
-import Space_visualization as Visual
+import BDSpaceVis as Visual
 
 
 class ChargedBall(Field):

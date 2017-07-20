@@ -2,9 +2,9 @@ from __future__ import division, print_function
 from Space import Space
 from Space.Figure import Figure
 from Space.Curve import Curve
-from Space_visualization.space import SpaceView
-from Space_visualization.figures import FigureView
-from Space_visualization.curves import CurveView
+from BDSpaceVis.space import SpaceView
+from BDSpaceVis.figures import FigureView
+from BDSpaceVis.curves import CurveView
 
 
 def gen_space_views(fig, space, scale=1):

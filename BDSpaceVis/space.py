@@ -5,7 +5,7 @@ from mayavi import mlab
 from tvtk.api import tvtk
 
 from Space import Space
-from Space_visualization.coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
+from BDSpaceVis.coordinate_system import draw_coordinate_system_axes, update_coordinate_system_axes
 
 
 class SpaceView(object):

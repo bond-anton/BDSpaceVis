@@ -4,7 +4,7 @@ from mayavi import mlab
 
 from Space.Field import Field
 
-from Space_visualization.space import SpaceView
+from BDSpaceVis.space import SpaceView
 
 
 class FieldView(SpaceView):

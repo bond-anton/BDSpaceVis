@@ -8,8 +8,8 @@ from Space.Figure.Cone import ConicalWedge
 from Space.Figure.Torus import ToricWedge
 from Space.Figure.Cube import Parallelepiped
 
-from Space_visualization import generators
-from Space_visualization.space import SpaceView
+from BDSpaceVis import generators
+from BDSpaceVis.space import SpaceView
 
 
 class FigureView(SpaceView):
