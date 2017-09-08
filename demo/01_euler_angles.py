@@ -4,7 +4,7 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
-from Space.Coordinates import Cartesian
+from BDSpace.Coordinates import Cartesian
 import BDSpaceVis as Visual
 
 # Euler's angles are used in the proper notation Z (phi1) - X' (Phi) - Z" (phi2)

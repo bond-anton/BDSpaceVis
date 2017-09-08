@@ -2,9 +2,9 @@ from __future__ import division
 import numpy as np
 from mayavi import mlab
 
-from Space.Figure.Sphere import Sphere
-from Space.Field import Field, SuperposedField
-from Space.Coordinates import transforms as gt
+from BDSpace.Figure.Sphere import Sphere
+from BDSpace.Field import Field, SuperposedField
+from BDSpace.Coordinates import transforms as gt
 
 import BDSpaceVis as Visual
 

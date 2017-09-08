@@ -2,9 +2,9 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
-from Space.Coordinates import Cartesian
-from Space.Curve.Parametric import Helix
-from Space.Pathfinder import line_between_two_points, helix_between_two_points, arc_between_two_points
+from BDSpace.Coordinates import Cartesian
+from BDSpace.Curve.Parametric import Helix
+from BDSpace.Pathfinder import line_between_two_points, helix_between_two_points, arc_between_two_points
 import BDSpaceVis as Visual
 
 coordinate_system = Cartesian()

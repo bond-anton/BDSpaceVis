@@ -2,10 +2,10 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
-from Space import Space
-from Space.Figure.Sphere import *
-from Space.Curve.Parametric import Arc
-from Space.Coordinates import Cartesian
+from BDSpace import Space
+from BDSpace.Figure.Sphere import *
+from BDSpace.Curve.Parametric import Arc
+from BDSpace.Coordinates import Cartesian
 import BDSpaceVis as Visual
 
 

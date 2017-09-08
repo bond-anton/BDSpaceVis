@@ -2,7 +2,7 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
-from Space.Field import Field
+from BDSpace.Field import Field
 
 from BDSpaceVis.space import SpaceView
 

@@ -1,12 +1,12 @@
 from __future__ import division, print_function
 import numpy as np
 
-from Space.Figure import Figure
-from Space.Figure.Sphere import SphericalShape, SphericalWedge, SphericalSegmentWedge
-from Space.Figure.Cylinder import CylindricalWedge
-from Space.Figure.Cone import ConicalWedge
-from Space.Figure.Torus import ToricWedge
-from Space.Figure.Cube import Parallelepiped
+from BDSpace.Figure import Figure
+from BDSpace.Figure.Sphere import SphericalShape, SphericalWedge, SphericalSegmentWedge
+from BDSpace.Figure.Cylinder import CylindricalWedge
+from BDSpace.Figure.Cone import ConicalWedge
+from BDSpace.Figure.Torus import ToricWedge
+from BDSpace.Figure.Cube import Parallelepiped
 
 from BDSpaceVis import generators
 from BDSpaceVis.space import SpaceView

@@ -2,8 +2,8 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
-from Space.Coordinates import Cartesian
-from Space.Curve.Parametric import Arc
+from BDSpace.Coordinates import Cartesian
+from BDSpace.Curve.Parametric import Arc
 import BDSpaceVis as Visual
 
 coordinate_system = Cartesian()

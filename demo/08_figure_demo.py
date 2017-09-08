@@ -2,14 +2,14 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
-from Space import Space
-from Space.Figure.Sphere import *
-from Space.Figure.Cylinder import CylindricalWedge, Cylinder
-from Space.Figure.Cone import ConicalWedge
-from Space.Figure.Torus import ToricWedge
-from Space.Figure.Cube import Parallelepiped, ParallelepipedTriclinic, Cuboid, Cube
-from Space.Curve.Parametric import Arc
-from Space.Coordinates import Cartesian
+from BDSpace import Space
+from BDSpace.Figure.Sphere import *
+from BDSpace.Figure.Cylinder import CylindricalWedge, Cylinder
+from BDSpace.Figure.Cone import ConicalWedge
+from BDSpace.Figure.Torus import ToricWedge
+from BDSpace.Figure.Cube import Parallelepiped, ParallelepipedTriclinic, Cuboid, Cube
+from BDSpace.Curve.Parametric import Arc
+from BDSpace.Coordinates import Cartesian
 import BDSpaceVis as Visual
 
 fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 0.5))  # Create the mayavi figure

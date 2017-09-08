@@ -4,7 +4,7 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
-from Space.Coordinates import Cartesian
+from BDSpace.Coordinates import Cartesian
 import BDSpaceVis as Visual
 
 # Create cartesian coordinate system

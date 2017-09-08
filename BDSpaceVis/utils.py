@@ -1,7 +1,7 @@
 from __future__ import division, print_function
-from Space import Space
-from Space.Figure import Figure
-from Space.Curve import Curve
+from BDSpace import Space
+from BDSpace.Figure import Figure
+from BDSpace.Curve import Curve
 from BDSpaceVis.space import SpaceView
 from BDSpaceVis.figures import FigureView
 from BDSpaceVis.curves import CurveView
