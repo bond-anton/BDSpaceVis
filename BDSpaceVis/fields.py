@@ -81,7 +81,6 @@ class FieldView(SpaceView):
                     except:
                         print('Nope (:')
                         pass
-                #self.scalar_volume = mlab.pipeline.volume(self.vector_field)
         if not self.vector_field_visible:
             self.remove_vector_field()
         if not self.scalar_field_visible:
