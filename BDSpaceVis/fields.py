@@ -79,7 +79,7 @@ class FieldView(SpaceView):
                         self.scalar_volume = mlab.pipeline.volume(self.vector_field)
                         break
                     except:
-                        print('Nope (:')
+                        print('Can not add scalar field to mayavi pipeline (:')
                         pass
         if not self.vector_field_visible:
             self.remove_vector_field()
