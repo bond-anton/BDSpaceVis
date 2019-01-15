@@ -8,9 +8,9 @@ from BDSpaceVis import generators
 
 
 def euler_color(euler_angles):
-    r = (euler_angles[0] + np.pi) / (2 * np.pi)
-    g = euler_angles[1] / np.pi
-    b = (euler_angles[2] + np.pi) / (2 * np.pi)
+    r = (euler_angles.euler_angles[0] + np.pi) / (2 * np.pi)
+    g = euler_angles.euler_angles[1] / np.pi
+    b = (euler_angles.euler_angles[2] + np.pi) / (2 * np.pi)
     if np.allclose(r, 0):
         r = 0
     if np.allclose(g, 0):
@@ -24,8 +24,8 @@ def coordinate_system_arrows(coordinate_system, offset=0.0, scale=1.0):
     points = []
     lengths = []
     for i in range(3):
-        points.append(coordinate_system.origin + scale * coordinate_system.basis[i] * offset)
-        lengths.append(coordinate_system.basis[:, i] * scale)
+        points.append(coordinate_system.origin + scale * np.asarray(coordinate_system.basis[i]) * offset)
+        lengths.append(np.asarray(coordinate_system.basis[:, i]) * scale)
     points = np.array(points)
     lengths = np.array(lengths)
     return points, lengths
@@ -60,7 +60,7 @@ def draw_coordinate_system_box(fig, coordinate_system, offset=0.5, scale=1.0, dr
     cube_points, dims = generators.generate_cuboid(scale, scale, scale,
                                                    origin=np.array([scale/2, scale/2, scale/2]))
     cube = tvtk.StructuredGrid(dimensions=dims)
-    cube.points = coordinate_system.to_parent(cube_points)
+    cube.points = np.asarray(coordinate_system.to_parent(cube_points))
     color = euler_color(coordinate_system.euler_angles)
     cube_surface = mlab.pipeline.surface(cube, color=color)
     cube_surface.parent.parent.name = 'Euler colored box: ' + coordinate_system.name
@@ -82,7 +82,7 @@ def update_coordinate_system_axes(coordinate_system, arrows, labels, offset=0.0,
     data.mlab_source.w = lengths[2, :]
     glyph_scale = arrows.glyph.glyph.scale_factor * 1.1
     for i in range(len(labels)):
-        labels[i].position = points[i, :] + glyph_scale * coordinate_system.basis[i, :]
+        labels[i].position = points[i, :] + glyph_scale * np.asarray(coordinate_system.basis[i, :])
         labels[i].scale = np.ones(3) * 0.1 * glyph_scale
     return arrows, labels
 
@@ -91,7 +91,7 @@ def update_coordinate_system_box(coordinate_system, cube_surface, arrows, labels
     cube_points, dims = generators.generate_cuboid(scale, scale, scale,
                                                    origin=np.array([scale/2, scale/2, scale/2]))
     color = euler_color(coordinate_system.euler_angles)
-    cube_surface.parent.parent.data.set(points=coordinate_system.to_parent(cube_points))
+    cube_surface.parent.parent.data.set(points=np.asarray(coordinate_system.to_parent(cube_points)))
     cube_surface.actor.property.edge_visibility = 1
     cube_surface.actor.property.edge_color = color
     cube_surface.actor.property.color = color

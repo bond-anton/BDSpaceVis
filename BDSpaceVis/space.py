@@ -96,13 +96,13 @@ class SpaceView(object):
                 coordinate_system = self.space.basis_in_global_coordinate_system()
                 if self.surface is None:
                     grid = tvtk.StructuredGrid(dimensions=self.dims)
-                    grid.points = coordinate_system.to_parent(self.points)
+                    grid.points = np.asarray(coordinate_system.to_parent(self.points))
                     mlab.figure(self.fig, bgcolor=self.fig.scene.background)
                     data_set = mlab.pipeline.add_dataset(grid, self.space.name)
                     self.surface = mlab.pipeline.surface(data_set)
                 else:
                     self.surface.parent.parent.data.set(dimensions=self.dims)
-                    self.surface.parent.parent.data.set(points=coordinate_system.to_parent(self.points))
+                    self.surface.parent.parent.data.set(points=np.asarray(coordinate_system.to_parent(self.points)))
                 self.surface.parent.parent.name = self.space.name
                 self.surface.actor.property.color = self.color
                 self.surface.actor.property.edge_visibility = self.edge_visible

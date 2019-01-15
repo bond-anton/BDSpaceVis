@@ -2,6 +2,7 @@ from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
+from BDQuaternions import Conventions, EulerAngles
 from BDSpace import Space
 from BDSpace.Figure.Sphere import *
 from BDSpace.Figure.Cylinder import CylindricalWedge, Cylinder
@@ -14,12 +15,13 @@ import BDSpaceVis as Visual
 
 fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 0.5))  # Create the mayavi figure
 
-joint_disc_cs = Cartesian()
-joint_disc_cs.euler_angles = (0, np.pi/2, 0)
+convention = Conventions().get_convention('Bunge')
+joint_disc_cs = Cartesian(euler_angles_convention=convention)
+joint_disc_cs.euler_angles = EulerAngles(np.array([0, np.pi/2, 0], dtype=np.double), convention)
 
 joint_disc = Cylinder(name='Moon', coordinate_system=joint_disc_cs,
                       r_inner=0.0, r_outer=1.5, z=[-1.0, 1.0])
-rod = Cylinder(name='Moon', coordinate_system=Cartesian(origin=[0.0, 0.0, 0.0]),
+rod = Cylinder(name='Moon', coordinate_system=Cartesian(origin=np.array([0.0, 0.0, 0.0])),
                r_inner=0.3, r_outer=0.5, z=[0.0, 4])
 box = ParallelepipedTriclinic(name='Parallelepiped', a=1, b=1, c=1, alpha=np.pi/4, beta=np.pi/4, gamma=np.pi/4)
 #wedge = SphericalWedge(r_inner=5, r_outer=7, phi=2*np.pi*0.7, theta=[np.pi/4*0, np.pi/3])

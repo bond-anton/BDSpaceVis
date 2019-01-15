@@ -43,23 +43,24 @@ solar_system.add_element(earth)
 
 fig = mlab.figure('CS demo', bgcolor=(0.5, 0.5, 0.5))  # Create the mayavi figure
 
+views = Visual.gen_space_views(fig, solar_system)
+views['Solar System'].set_cs_visible(False)
+views['Sun'].set_cs_visible(False)
+views['Earth'].set_cs_visible(True)
+views['Sun'].set_color((1.0, 1.0, 0.2))
+views['Earth'].set_color((0.0, 0.0, 0.5))
+Visual.draw_space(views)
+#views['Lunohod'].set_wireframe(True)
+#views['Moon'].set_wireframe(True)
+#views['Moon'].set_cs_visible(True)
+
+@mlab.show
 @mlab.animate(delay=100)
 def anim():
-    views = Visual.gen_space_views(fig, solar_system)
-    views['Solar System'].set_cs_visible(False)
-    views['Sun'].set_cs_visible(False)
-    views['Earth'].set_cs_visible(False)
-    views['Sun'].set_color((1.0, 1.0, 0.2))
-    views['Earth'].set_color((0.0, 0.0, 0.5))
-    Visual.draw_space(views)
-    #views['Lunohod'].set_wireframe(True)
-    #views['Moon'].set_wireframe(True)
-    #views['Moon'].set_cs_visible(True)
     while True:
         Visual.draw_space(views)
-        earth.coordinate_system.rotate_axis_angle([1, 1, 1], np.deg2rad(1))
-        #moon.coordinate_system.rotate_axis_angle([0, 0, 1], np.deg2rad(1))
+        earth.coordinate_system.rotate_axis_angle(np.array([1, 1, 1], dtype=np.double), np.deg2rad(1))
+        #moon.coordinate_system.rotate_axis_angle(np.array([0, 0, 1], dtype=np.double), np.deg2rad(1))
         yield
 
 anim()
-mlab.show()

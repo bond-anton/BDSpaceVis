@@ -26,8 +26,8 @@ right_helix_view.draw()
 left_helix_view = Visual.CurveView(fig=fig, curve=left_helix)
 left_helix_view.draw()
 
-point1 = np.array([1, 1, 0])
-point2 = np.array([2, 2, 0])
+point1 = np.array([1, 1, 0], dtype=np.double)
+point2 = np.array([2, 2, 0], dtype=np.double)
 points = np.vstack((coordinate_system.to_parent(point1), coordinate_system.to_parent(point2)))
 mlab.points3d(points[:, 0], points[:, 1], points[:, 2], scale_factor=0.1)
 

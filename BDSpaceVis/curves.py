@@ -48,7 +48,7 @@ class CurveView(SpaceView):
         if self.surface_visible:
             if self.points is not None:
                 coordinate_system = self.space.basis_in_global_coordinate_system()
-                curve_points = coordinate_system.to_parent(self.points)
+                curve_points = np.asarray(coordinate_system.to_parent(self.points))
                 if self.surface is None:
                     mlab.figure(self.fig, bgcolor=self.fig.scene.background)
                     if self.thickness is None:

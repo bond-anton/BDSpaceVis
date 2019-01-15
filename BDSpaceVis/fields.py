@@ -53,7 +53,7 @@ class FieldView(SpaceView):
     def draw_volume(self):
         if self.vector_field_visible or self.scalar_field_visible:
             coordinate_system = self.space.basis_in_global_coordinate_system()
-            grid = coordinate_system.to_parent(self.grid.reshape(3, -1).T).T.reshape(self.grid.shape)
+            grid = np.asarray(coordinate_system.to_parent(np.asarray(self.grid).reshape(3, -1).T)).T.reshape(self.grid.shape)
             if self.vector_field is None:
                 mlab.figure(self.fig, bgcolor=self.fig.scene.background)
                 self.vector_field = mlab.pipeline.vector_field(grid[0], grid[1], grid[2],

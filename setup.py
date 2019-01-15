@@ -52,6 +52,6 @@ setup(
     keywords='visualization 3D Space Mayavi',
 
     packages=find_packages(exclude=['demo', 'tests', 'docs', 'contrib']),
-    install_requires=['BDSpace>=0.2.2', 'mayavi'],
+    install_requires=['BDSpace>=0.2.8', 'mayavi'],
     dependency_links=['https://github.com/bond-anton/BDSpace/tarball/master#egg=BDSpace-0.2.2']
 )
