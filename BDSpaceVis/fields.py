@@ -44,11 +44,11 @@ class FieldView(SpaceView):
 
     def update_scalar_data(self):
         grid_xyz = self.grid.reshape(3, -1).T
-        self.scalar_data = self.space.scalar_field(grid_xyz).T.reshape(np.array(self.grid.shape)[1:])
+        self.scalar_data = np.asarray(self.space.scalar_field(grid_xyz)).T.reshape(np.array(self.grid.shape)[1:])
 
     def update_vector_data(self):
         grid_xyz = self.grid.reshape(3, -1).T
-        self.vector_data = self.space.vector_field(grid_xyz).T.reshape(self.grid.shape)
+        self.vector_data = np.asarray(self.space.vector_field(grid_xyz)).T.reshape(self.grid.shape)
 
     def draw_volume(self):
         if self.vector_field_visible or self.scalar_field_visible:
