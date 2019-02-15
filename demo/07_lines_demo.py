@@ -1,9 +1,7 @@
-from __future__ import division, print_function
-import numpy as np
 from mayavi import mlab
 
 from BDSpace.Coordinates import Cartesian
-from BDSpace.Curve.Parametric import Line
+from BDSpace.Curve import Line
 import BDSpaceVis as Visual
 
 coordinate_system = Cartesian()

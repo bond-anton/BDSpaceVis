@@ -1,8 +1,6 @@
-from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
-from BDSpace.Curve import Curve
-from BDSpace.Curve.Parametric import ParametricCurve
+from BDSpace.Curve import ParametricCurve
 
 from BDSpaceVis.space import SpaceView
 
@@ -11,7 +9,7 @@ class CurveView(SpaceView):
 
     def __init__(self, fig, curve, scale=1, color=None, opacity=None, edge_visible=False,
                  cs_visible=True, surface_visible=True, wireframe=False, resolution=20, thickness=None):
-        assert isinstance(curve, Curve)
+        assert isinstance(curve, ParametricCurve)
         self.resolution = resolution
         self.edge_visible = edge_visible
         self.thickness = None
@@ -85,13 +83,12 @@ class CurveView(SpaceView):
 
 
 def generate_points(curve, resolution=20):
-    assert isinstance(curve, Curve)
+    assert isinstance(curve, ParametricCurve)
     points = None
     dims = None
-    if isinstance(curve, ParametricCurve):
-        num_points = angular_resolution(abs(curve.stop - curve.start), resolution)
-        t = np.linspace(curve.start, curve.stop, num=num_points, endpoint=True, dtype=np.float)
-        points = curve.generate_points(t)
+    num_points = angular_resolution(abs(curve.stop - curve.start), resolution)
+    t = np.linspace(curve.start, curve.stop, num=num_points, endpoint=True, dtype=np.float)
+    points = curve.generate_points(t)
     return points, dims
 
 

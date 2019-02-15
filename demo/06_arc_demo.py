@@ -1,4 +1,3 @@
-from __future__ import division, print_function
 import numpy as np
 from mayavi import mlab
 
@@ -12,6 +11,6 @@ arc = Arc(name='Arc', coordinate_system=coordinate_system, a=1, b=2, start=0, st
 arc_visual = Visual.CurveView(fig, arc, color=(1, 0, 0), thickness=None)
 arc_visual.draw()
 arc_visual.set_thickness(arc_visual.thickness / 2)
-print(arc.get_eccentricity())
-print(arc.get_focus())
+print(arc.eccentricity())
+print(arc.focus())
 mlab.show()

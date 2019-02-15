@@ -1,5 +1,3 @@
-from __future__ import division, print_function
-import numpy as np
 from mayavi import mlab
 
 from BDQuaternions import Conventions, EulerAngles
@@ -9,7 +7,7 @@ from BDSpace.Figure.Cylinder import CylindricalWedge, Cylinder
 from BDSpace.Figure.Cone import ConicalWedge
 from BDSpace.Figure.Torus import ToricWedge
 from BDSpace.Figure.Cube import Parallelepiped, ParallelepipedTriclinic, Cuboid, Cube
-from BDSpace.Curve.Parametric import Arc
+from BDSpace.Curve import Arc
 from BDSpace.Coordinates import Cartesian
 import BDSpaceVis as Visual
 

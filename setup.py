@@ -43,16 +43,15 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Topic :: Scientific/Engineering :: Visualization',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 
     keywords='visualization 3D Space Mayavi',
 
     packages=find_packages(exclude=['demo', 'tests', 'docs', 'contrib']),
-    install_requires=['BDSpace>=0.2.8', 'mayavi'],
-    dependency_links=['https://github.com/bond-anton/BDSpace/tarball/master#egg=BDSpace-0.2.2']
+    install_requires=['BDSpace>=0.3.1', 'mayavi'],
 )
