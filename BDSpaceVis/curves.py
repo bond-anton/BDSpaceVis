@@ -35,8 +35,11 @@ class CurveView(SpaceView):
         """
         if isinstance(thickness, (float, int)):
             self.thickness = float(thickness)
-            self.surface.parent.parent.filter.radius = self.thickness
-            self.draw()
+            try:
+                self.surface.parent.parent.filter.radius = self.thickness
+                self.draw()
+            except AttributeError:
+                pass
 
     def set_edge_visible(self, edge_visible=True):
         self.edge_visible = edge_visible
@@ -84,7 +87,6 @@ class CurveView(SpaceView):
 
 def generate_points(curve, resolution=20):
     assert isinstance(curve, ParametricCurve)
-    points = None
     dims = None
     num_points = angular_resolution(abs(curve.stop - curve.start), resolution)
     t = np.linspace(curve.start, curve.stop, num=num_points, endpoint=True, dtype=np.float)
