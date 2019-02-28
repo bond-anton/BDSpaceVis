@@ -75,10 +75,10 @@ class FieldView(SpaceView):
                 self.vector_field.origin = origin
                 self.vector_field.vector_data = np.rollaxis(self.vector_data, 0, 4)
                 self.vector_field.scalar_data = self.scalar_data
-            if self.scale_factor is not None:
-                self.vector_field.children[0].children[0].glyph.glyph.scale_factor = self.scale_factor
             if self.vector_volume is None and self.vector_field_visible:
                 self.vector_volume = mlab.pipeline.vectors(self.vector_field)
+            if self.scale_factor is not None:
+                self.vector_field.children[0].children[0].glyph.glyph.scale_factor = self.scale_factor
             if self.scalar_volume is None and self.scalar_field_visible:
                 while 1:
                     try:

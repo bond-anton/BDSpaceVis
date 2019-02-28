@@ -75,7 +75,7 @@ loop_vis.set_thickness(loop_r)
 loop_vis.draw()
 
 fields_superposition_vis = Visual.FieldView(fig, fields_superposition, scalar_field_visible=False)
-
+fields_superposition_vis.set_scale_factor(1.5)
 # pos_ball_field_vis = Visual.FieldView(fig, pos_electrostatic_field)
 # neg_ball_field_vis = Visual.FieldView(fig, neg_electrostatic_field)
 
