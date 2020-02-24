@@ -16,16 +16,16 @@ class ChargedBall(Field):
         super(ChargedBall, self).__init__(name, field_type)
 
     def scalar_field(self, xyz):
-        rtp = gt.cartesian_to_spherical(xyz)
+        rtp = np.asarray(gt.cartesian_to_spherical(xyz))
         rtp[np.where(rtp[:, 0] < self.r), 0] = self.r
         return self.q / rtp[:, 0]
 
     def vector_field(self, xyz):
-        rtp = gt.cartesian_to_spherical(xyz)
+        rtp = np.asarray(gt.cartesian_to_spherical(xyz))
         rtp[np.where(rtp[:, 0] < self.r), 0] = self.r
         r = rtp[:, 0] ** 2
         r = np.array([r, r, r]).T
-        return self.q * xyz / r
+        return self.q * np.asarray(xyz) / r
 
 pos_charged_ball = Sphere(name='Pos Charged Ball', r_outer=1.0)
 pos_charged_ball.coordinate_system.origin += np.array([-5, 0, 0])
